@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speak FM – Learn English via Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="logo-wrap">
+      <div class="logo-icon"><img src="img\speak.jpg" alt=""></div>
+      <div class="logo-text">
+        <h1>Speak FM</h1>
+        <span>LEARN ENGLISH VIA STORY</span>
+      </div>
+    </div>
+
+    <!-- Botón volver al inicio (solo visible en fase main) -->
+    <button class="btn-home" id="btnHome" onclick="goHome()" title="Volver al inicio">
+      ⌂ Inicio
+    </button>
+
+    <div class="ep-badge" id="epBadge">EP.1/8</div>
+  </header>
+
+  <!-- ══ TAB NAV ══ -->
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="historia" onclick="switchTab('historia')">Historia</button>
+    <button class="tab-btn" data-tab="practica" onclick="switchTab('practica')">Práctica</button>
+    <button class="tab-btn" data-tab="diario" onclick="switchTab('diario')">Diario</button>
+  </div>
+
+  <!-- Tooltip de palabras -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <!-- Toast de notificaciones -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Modal de confirmación para volver al inicio -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title">¿Volver al inicio?</h3>
+      <p class="modal-text">Tu progreso está guardado automáticamente. Podrás retomar desde donde lo dejaste.</p>
+      <div class="modal-actions">
+        <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="confirmGoHome()">Sí, volver al inicio</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══ PANTALLA: ONBOARDING ══ -->
+    <div class="screen active" id="screen-onboarding">
+
+      <div class="dial-wrap">
+        <div class="dial" id="mainDial">
+          <div class="dial-needle" id="mainNeedle"></div>
+        </div>
+        <div class="dial-pct" id="mainPct">0% SINTONIZADO</div>
+      </div>
+
+      <div class="card">
+        <div class="card-eyebrow">BIENVENIDO</div>
+        <h2>Aprende inglés siguiendo una historia real, no una lección aislada</h2>
+        <p>Vas a seguir "The Frequency", un misterio periodístico en 8 episodios. Lees, conversas con sus personajes en inglés (con un tutor de IA) y tu propio vocabulario va formando tu diario personal.</p>
+      </div>
+
+      <div class="level-card">
+        <div class="level-eyebrow">PASO 1</div>
+        <h3>¿Cuál es tu nivel actual de inglés?</h3>
+        <div class="level-options">
+          <div class="level-opt" data-level="intermedio" onclick="selectLevel(this)">
+            <div class="level-icon">📻</div>
+            <div class="level-name">Intermedio</div>
+            <div class="level-code">B1-B2</div>
+          </div>
+          <div class="level-opt" data-level="avanzado" onclick="selectLevel(this)">
+            <div class="level-icon">✍️</div>
+            <div class="level-name">Avanzado</div>
+            <div class="level-code">C1</div>
+          </div>
+        </div>
+        <p class="level-lock-note" id="levelLockNote">Tu nivel ya está sintonizado. No puedes cambiar al otro. </p>
+        <button class="btn-primary" id="btnSintonizar" onclick="sintonizar()">
+          Sintonizar la frecuencia
+        </button>
+      </div>
+
+      <div class="footer-note">— transmisión privada · tu progreso se guarda automáticamente —</div>
+    </div>
+
+    <!-- ══ PANTALLA: HISTORIA ══ -->
+    <div class="screen" id="screen-historia">
+      <div class="ep-list-card">
+        <div class="ep-list-header">
+          <div class="eyebrow">FRECUENCIAS</div>
+          <h2>The Frequency</h2>
+          <p class="ep-list-note" id="epListNote"></p>
+        </div>
+        <div id="epList"></div>
+      </div>
+      <div class="footer-note" style="margin-top:28px;">
+        — transmisión privada · tu progreso se guarda automáticamente —
+      </div>
+    </div>
+
+    <!-- ══ PANTALLA: LECTOR DE EPISODIO ══ -->
+    <div class="screen" id="screen-reader">
+      <div class="reader-header">
+        <button class="back-btn" onclick="goBack()">← Episodios</button>
+        <span class="reader-ep-label" id="readerEpLabel"></span>
+      </div>
+      <div class="reader-title" id="readerTitle"></div>
+      <div class="reader-body" id="readerBody"></div>
+
+      <div class="quiz-panel" id="quizPanel">
+        <div class="quiz-eyebrow">COMPRENSIÓN · B1–B2</div>
+        <h3>Sintoniza la siguiente frecuencia</h3>
+        <p class="quiz-hint">Lee la historia y responde. Debes acertar todas las preguntas para continuar. Si fallas, puedes intentarlo de nuevo.</p>
+        <button type="button" class="quiz-review" onclick="scrollToStory()">↑ Revisar la historia</button>
+        <form id="quizForm"></form>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <div class="quiz-actions">
+          <button type="button" class="btn-complete" id="btnSubmitQuiz" onclick="submitQuiz()">Comprobar respuestas</button>
+          <button type="button" class="btn-secondary" id="btnRetryQuiz" onclick="retryQuiz()">Intentar de nuevo</button>
+        </div>
+      </div>
+
+      <div class="reader-actions" id="readerActions">
+        <button class="btn-secondary" onclick="goBack()">← Volver</button>
+        <button class="btn-complete" id="btnComplete">
+          Responder preguntas →
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PANTALLA: PRÁCTICA ══ -->
+    <div class="screen" id="screen-practica">
+      <div id="practicaContent"></div>
+      <div class="footer-note" style="margin-top:28px;">
+        — transmisión privada · tu progreso se guarda automáticamente —
+      </div>
+    </div>
+
+    <!-- ══ PANTALLA: DIARIO ══ -->
+    <div class="screen" id="screen-diario">
+
+      <div class="diario-dial-wrap">
+        <div class="diario-dial">
+          <div class="diario-dial-needle" id="diarioDialNeedle"></div>
+        </div>
+        <div class="diario-pct" id="diarioPct">0% SINTONIZADO</div>
+      </div>
+
+      <div class="progress-card">
+        <div class="eyebrow">TU PROGRESO</div>
+        <div class="progress-stats">
+          <div class="stat-item">
+            <div class="stat-num" id="statEpisodes">0/8</div>
+            <div class="stat-label">episodios</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="statWords">0</div>
+            <div class="stat-label">palabras</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="statConvos">0</div>
+            <div class="stat-label">conversaciones</div>
+          </div>
+        </div>
+        <div class="ep-badges" id="epBadges"></div>
+      </div>
+
+      <div class="vocab-card">
+        <div class="eyebrow">DIARIO DE VOCABULARIO</div>
+        <div id="vocabContent"></div>
+      </div>
+
+      <div class="insignias-card">
+        <div class="eyebrow">INSIGNIAS</div>
+        <div class="insignias-grid" id="insigniasGrid"></div>
+      </div>
+
+      <div class="footer-note">— transmisión privada · tu progreso se guarda automáticamente —</div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
