@@ -61,7 +61,7 @@ header img{
   width: 70px;
   height: 70px;
   border-radius: 12px;
-  background: var(--cream);
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;

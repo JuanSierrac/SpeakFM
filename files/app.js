@@ -18,7 +18,7 @@ const state = {
 const EPISODES = [
   {
     id: 1,
-    title: 'La señal',
+    title: 'The signal',
     story: `
       <p>Maya Reyes arrives at the old radio station just as the last afternoon light falls on the metal antennas.
       She carries her recorder on one shoulder and a notebook filled with questions that nobody wants to answer.</p>
@@ -109,7 +109,7 @@ const EPISODES = [
   },
   {
     id: 2,
-    title: 'El archivo',
+    title: 'The file',
     story: `
       <p>The city archive smells of damp paper and old ink. Maya navigates through rows of metal shelves,
       looking for the file referenced in the signal coordinates.</p>
@@ -197,7 +197,7 @@ const EPISODES = [
   },
   {
     id: 3,
-    title: 'El informante',
+    title: 'The Informant',
     story: `
       <p>A voicemail arrives at 3 a.m. on Maya's burner phone: "You found the folder. Don't trust the tower's
       owner. Meet me at the harbor at noon. Come alone."</p>
@@ -281,7 +281,7 @@ const EPISODES = [
   },
   {
     id: 4,
-    title: 'Fronteras',
+    title: 'Borders',
     story: `
       <p>The investigation leads Maya across the border. The signal's origin has a second address —
       a warehouse in a quiet industrial town. She rents a car and drives.</p>
@@ -362,7 +362,7 @@ const EPISODES = [
   },
   {
     id: 5,
-    title: 'La ingeniera',
+    title: 'The engineer',
     story: `
       <p>Her name is Sofía Chen. She's the one who
       <span class="word-highlight" data-word="encrypted" data-def="Encrypted: converted into a coded form to prevent unauthorised access.">encrypted</span>
@@ -443,7 +443,7 @@ const EPISODES = [
   },
   {
     id: 6,
-    title: 'Contravigilancia',
+    title: 'Counter-Surveillance',
     story: `
       <p>Maya realises she's been followed for three days. A silver sedan, always two cars behind.
       She
@@ -528,7 +528,7 @@ const EPISODES = [
   },
   {
     id: 7,
-    title: 'La negociación',
+    title: 'The Negotiation',
     story: `
       <p>The tower's owner, Mr. Harlan Voss, calls Maya directly. "Meet me. Alone. Let's discuss what
       you have before you do something you regret."</p>
@@ -610,7 +610,7 @@ const EPISODES = [
   },
   {
     id: 8,
-    title: 'Al aire',
+    title: 'On the air',
     story: `
       <p>The story runs on Sunday. By Monday morning, three
       <span class="word-highlight" data-word="regulatory" data-def="Regulatory: relating to official rules that control an industry or activity.">regulatory</span>
@@ -692,9 +692,9 @@ const EPISODES = [
 
 /* ─── INSIGNIAS ─── */
 const INSIGNIAS = [
-  { id: 'primera_lectura', name: 'Primera señal', emoji: '📡', cond: () => state.completedEps.length >= 1 },
-  { id: 'mitad',           name: 'En frecuencia', emoji: '🎚️', cond: () => state.completedEps.length >= 4 },
-  { id: 'completo',        name: 'Al aire',        emoji: '🏆', cond: () => state.completedEps.length === 8 },
+  { id: 'primera_lectura', name: 'First signal', emoji: '📡', cond: () => state.completedEps.length >= 1 },
+  { id: 'mitad',           name: 'On frequency', emoji: '🎚️', cond: () => state.completedEps.length >= 4 },
+  { id: 'completo',        name: 'On the air',        emoji: '🏆', cond: () => state.completedEps.length === 8 },
   { id: 'vocabulario',     name: 'Lexicón',        emoji: '📖', cond: () => state.savedWords.length >= 5 },
   { id: 'conversador',     name: 'Interlocutor',   emoji: '💬', cond: () => state.conversations >= 3 },
 ];
