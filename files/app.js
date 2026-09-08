@@ -610,7 +610,7 @@ const EPISODES = [
   },
   {
     id: 8,
-    title: 'On the air',
+    title: 'On air',
     story: `
       <p>The story runs on Sunday. By Monday morning, three
       <span class="word-highlight" data-word="regulatory" data-def="Regulatory: relating to official rules that control an industry or activity.">regulatory</span>
