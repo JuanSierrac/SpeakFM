@@ -58,6 +58,21 @@ const EPISODES = [
         options: ['A shopping centre', 'The old archive downtown', 'A warehouse across the border'],
         answer: 1,
       },
+      {
+        q: 'What does Maya carry when she enters the radio station?',
+        options: ['A camera and a flashlight', 'A recorder and a notebook', 'A laptop and a map'],
+        answer: 1,
+      },
+      {
+        q: 'What is unusual about the radio frequency Maya finds?',
+        options: ['It broadcasts music', 'It is tuned to an abandoned band', 'It comes from another city'],
+        answer: 1,
+      },
+      {
+        q: 'What does Maya decide to do after finding the signal?',
+        options: ['Call the police immediately', 'Go to the old archive the next day', 'Leave the station and forget it'],
+        answer: 1,
+      },
     ],
     charGreetingC1: "You made it through the first transmission, then. Most people hear static and walk away. What did the pattern tell you — and what would you have done with those coordinates?",
     storyC1: `
@@ -105,6 +120,33 @@ const EPISODES = [
         ],
         answer: 1,
       },
+      {
+        q: "What does Maya's notebook full of unanswered questions tell us about her investigation?",
+        options: [
+          'She has reached a dead end',
+          'She has been pursuing leads that nobody will confirm',
+          'She works for a foreign intelligence agency',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why does the author describe the SOS pattern as "too regular to be coincidental"?',
+        options: [
+          'To suggest that natural interference could not produce it',
+          'To show that Maya has poor hearing',
+          'To indicate the frequency was always public',
+        ],
+        answer: 0,
+      },
+      {
+        q: 'What does the phrase "consigned to silence" imply about the old band?',
+        options: [
+          'It was deliberately removed from active use',
+          'It was never used for broadcasting',
+          'The government still monitors it daily',
+        ],
+        answer: 0,
+      },
     ],
   },
   {
@@ -141,6 +183,21 @@ const EPISODES = [
       {
         q: 'Why can Maya legally read the classified folder?',
         options: ['The clerk gives her a special key', 'The stamp is from 1987 and the time limit has expired', 'The documents were never secret'],
+        answer: 1,
+      },
+      {
+        q: 'What does Maya show the clerk to get access to the files?',
+        options: ['Her passport', 'Her press badge', 'A court order'],
+        answer: 1,
+      },
+      {
+        q: 'How does the clerk react before letting Maya into the back room?',
+        options: ['He smiles and invites her in', 'He calls his supervisor', 'He hesitates and then leads her reluctantly'],
+        answer: 2,
+      },
+      {
+        q: 'What is inside the classified manila folder?',
+        options: ['A single blank page', 'A thick collection of documents', 'A list of radio frequencies'],
         answer: 1,
       },
     ],
@@ -193,6 +250,33 @@ const EPISODES = [
         ],
         answer: 0,
       },
+      {
+        q: 'What does “capitulates” reveal about the clerk’s character?',
+        options: [
+          'He is genuinely eager to help journalists',
+          'He gives in reluctantly after initial resistance',
+          'He has legal authority to deny access permanently',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why does the narrator describe the stamp’s authority as “theatre”?',
+        options: [
+          'The folder was used in a stage production',
+          'The secrecy is now performative since the legal basis for it has expired',
+          'The clerk is acting on behalf of Voss',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What risk does Maya take by asking the wrong question in the archive?',
+        options: [
+          'She could be arrested on the spot',
+          'It would signal to observers that she knows more than she should',
+          'The documents would automatically be re-sealed',
+        ],
+        answer: 1,
+      },
     ],
   },
   {
@@ -229,6 +313,21 @@ const EPISODES = [
         q: 'Who does the man in the grey coat say he was?',
         options: ['The owner of the tower', 'A journalist', 'An engineer at the tower'],
         answer: 2,
+      },
+      {
+        q: 'What sound does Maya notice in the background of the voicemail?',
+        options: ['Traffic and car horns', 'Seagulls and a foghorn', 'Music and voices'],
+        answer: 1,
+      },
+      {
+        q: 'How is the caller’s voice described?',
+        options: ['Clear and confident', 'Distorted', 'Whispering quietly'],
+        answer: 1,
+      },
+      {
+        q: 'What does the informant warn Maya about?',
+        options: ['The archive clerk', 'Not trusting the tower’s owner', 'The police'],
+        answer: 1,
       },
     ],
     charGreetingC1: "You came alone. If you hadn't, I'd already be gone. You get one question that matters. Don't waste it on small talk.",
@@ -274,6 +373,33 @@ const EPISODES = [
           'It was used for something other than its public purpose',
           'It never broadcast anything at all',
           'It only transmitted Morse code legally',
+        ],
+        answer: 0,
+      },
+      {
+        q: 'Why does Maya use a disposable phone for certain contacts?',
+        options: [
+          'It has better audio quality',
+          'It protects sources who need to remain anonymous',
+          'Her regular phone is broken',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What does the informant’s refusal to turn around suggest?',
+        options: [
+          'He is rude and dismissive',
+          'He is protecting his identity even during the meeting',
+          'He is waiting for someone else',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'How does the subtext of the voicemail differ from its literal words?',
+        options: [
+          'The words are friendly but the urgency signals real danger',
+          'There is no difference; the message is straightforward',
+          'The caller claims to be from the police',
         ],
         answer: 0,
       },
@@ -358,6 +484,33 @@ const EPISODES = [
         ],
         answer: 0,
       },
+      {
+        q: 'Why does Maya withhold details from her editor before crossing the border?',
+        options: [
+          'She wants sole credit for the story',
+          'It is a deliberate omission to maintain control of the investigation',
+          'Her editor is on holiday',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What does the contrast between the exterior and interior of the warehouse reveal?',
+        options: [
+          'The building was recently renovated inside',
+          'Its derelict appearance is a deliberate disguise for ongoing activity',
+          'Maya entered the wrong building',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What does choosing speed over erasure say about the person who fled?',
+        options: [
+          'They were careless and disorganised',
+          'They knew they were being followed and prioritised escape over hiding evidence',
+          'They planned to return and clean up later',
+        ],
+        answer: 1,
+      },
     ],
   },
   {
@@ -391,6 +544,21 @@ const EPISODES = [
       {
         q: 'What does Sofía give Maya?',
         options: ['A press badge', 'A hard drive with intercepted transmissions', 'A map of the harbour'],
+        answer: 1,
+      },
+      {
+        q: 'What did Sofía want Maya to do with the signal?',
+        options: ['Ignore it and stay safe', 'Find it and investigate without burying it', 'Send it to the police'],
+        answer: 1,
+      },
+      {
+        q: 'Why did Sofía need someone outside the company?',
+        options: ['Insiders were too busy', 'An outsider could not be pressured to suppress the story', 'She had no colleagues left'],
+        answer: 1,
+      },
+      {
+        q: 'What kind of data is on the hard drive?',
+        options: ['Weather reports and maps', 'Two years of intercepted transmissions with timestamps and coordinates', 'A list of employees'],
         answer: 1,
       },
     ],
@@ -439,6 +607,33 @@ const EPISODES = [
         ],
         answer: 0,
       },
+      {
+        q: 'What does Sofía mean when she calls Maya “a contingency”?',
+        options: [
+          'Maya was chosen specifically and trusted completely',
+          'Maya was a fallback plan rather than the first choice',
+          'Maya was employed by the company',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why does Sofía describe herself as dismantling the apparatus “once she grasped its true mandate”?',
+        options: [
+          'She realised the system’s actual purpose contradicted what she had been told',
+          'She needed the parts for another project',
+          'The tower owner ordered her to stop',
+        ],
+        answer: 0,
+      },
+      {
+        q: 'What does “incontrovertible” metadata mean for Maya’s investigation?',
+        options: [
+          'The evidence can easily be dismissed in court',
+          'The data would be very difficult for anyone to deny or discredit',
+          'The hard drive is password-protected',
+        ],
+        answer: 1,
+      },
     ],
   },
   {
@@ -474,6 +669,21 @@ const EPISODES = [
         q: 'Who does the licence plate belong to?',
         options: ['The city archive', 'A subsidiary of the tower’s parent corporation', 'Sofía Chen'],
         answer: 1,
+      },
+      {
+        q: 'What technique does Maya use to get behind the person following her?',
+        options: ['She calls the police', 'She enters a shopping centre by the front and exits through the service bay', 'She takes a taxi'],
+        answer: 1,
+      },
+      {
+        q: 'What does Maya do when she spots the parked sedan?',
+        options: ['She confronts the driver directly', 'She photographs the licence plate', 'She runs away'],
+        answer: 1,
+      },
+      {
+        q: 'What does discovering the plate’s owner tell Maya about her investigation?',
+        options: ['She is getting closer to the truth', 'She has reached a dead end', 'The informant was lying'],
+        answer: 0,
       },
     ],
     charGreetingC1: "Three days of a silver sedan in the mirror is not paranoia; it's a pattern. I need a strategy that doesn't get me killed. How would you force them to show their hand?",
@@ -524,6 +734,33 @@ const EPISODES = [
         ],
         answer: 0,
       },
+      {
+        q: 'What quality in the follower’s driving tells Maya this is not an amateur?',
+        options: [
+          'The driver parks illegally',
+          'The sedan maintains a consistent two-car gap with controlled discipline',
+          'The driver uses a different car each day',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why does Maya avoid a direct confrontation with the driver?',
+        options: [
+          'She is too frightened to act',
+          'She designs a plan she can execute without entering a confrontation she cannot win',
+          'Her editor forbids physical contact',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What does “proximity, at last, has a name” mean at the end of the episode?',
+        options: [
+          'Maya has finally identified the corporate entity behind her surveillance',
+          'The driver introduces himself to Maya',
+          'The archive clerk reappears near the shopping centre',
+        ],
+        answer: 0,
+      },
     ],
   },
   {
@@ -557,6 +794,21 @@ const EPISODES = [
       {
         q: 'What does Maya do during the meeting?',
         options: ['She accepts the money', 'She stays composed and records everything', 'She destroys the hard drive'],
+        answer: 1,
+      },
+      {
+        q: 'What does Voss do first when he meets Maya?',
+        options: ['He threatens her immediately', 'He offers money', 'He calls the police'],
+        answer: 1,
+      },
+      {
+        q: 'What does Maya’s editor recommend before she meets Voss?',
+        options: ['To go alone and record everything', 'Caution', 'To publish the story first'],
+        answer: 1,
+      },
+      {
+        q: 'How does Maya manage to record the conversation with Voss secretly?',
+        options: ['She uses her phone on the table', 'She hides a recorder in her coat pocket', 'She brings a colleague to take notes'],
         answer: 1,
       },
     ],
@@ -605,6 +857,33 @@ const EPISODES = [
           'It makes the clerk reopen the archive',
         ],
         answer: 0,
+      },
+      {
+        q: 'What does Voss calling a number Maya never gave him reveal?',
+        options: [
+          'He guessed the number by chance',
+          'He has access to information about her that she did not share',
+          'A mutual friend passed it on',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why does the story describe the meeting as something that must be “walked through”?',
+        options: [
+          'Maya believes certain stories require direct confrontation rather than avoidance',
+          'The hotel has no lift',
+          'Voss refused to use the telephone',
+        ],
+        answer: 0,
+      },
+      {
+        q: 'What does Voss’s shift from bribery to intimidation tell us about him?',
+        options: [
+          'He is flexible and willing to compromise',
+          'He lacks a consistent strategy and resorts to pressure when money fails',
+          'He genuinely wants the story published',
+        ],
+        answer: 1,
       },
     ],
   },
@@ -686,6 +965,33 @@ const EPISODES = [
         ],
         answer: 0,
       },
+      {
+        q: 'What does the silence on the old frequency symbolise at the end?',
+        options: [
+          'The signal is still active but hidden',
+          'The distress call is no longer needed because the story has been told',
+          'Voss has taken over the frequency',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'Why are the regulatory inquiries significant beyond the story itself?',
+        options: [
+          'They show the publication had no real impact',
+          'They confirm that Maya’s reporting triggered consequences that neither she nor Voss can now control',
+          'They were launched before Maya published anything',
+        ],
+        answer: 1,
+      },
+      {
+        q: 'What does “corroborate the signal” mean in the final lines?',
+        options: [
+          'To verify and publicly confirm its existence through evidence',
+          'To decode the Morse pattern again',
+          'To sell the recording to another journalist',
+        ],
+        answer: 0,
+      },
     ],
   },
 ];
@@ -694,7 +1000,7 @@ const EPISODES = [
 const INSIGNIAS = [
   { id: 'primera_lectura', name: 'First signal', emoji: '📡', cond: () => state.completedEps.length >= 1 },
   { id: 'mitad',           name: 'On frequency', emoji: '🎚️', cond: () => state.completedEps.length >= 4 },
-  { id: 'completo',        name: 'On the air',        emoji: '🏆', cond: () => state.completedEps.length === 8 },
+  { id: 'completo',        name: 'On air',        emoji: '🏆', cond: () => state.completedEps.length === 8 },
   { id: 'vocabulario',     name: 'Lexicón',        emoji: '📖', cond: () => state.savedWords.length >= 5 },
   { id: 'conversador',     name: 'Interlocutor',   emoji: '💬', cond: () => state.conversations >= 3 },
 ];

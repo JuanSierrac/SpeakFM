@@ -12,7 +12,7 @@
 :root {
   --bg:         #1a1713;
   --bg-deep:    #111009;
-  --cream:      #f5f0e8;
+  --cream:      #f6def2e3;
   --cream-dark: #ede7d9;
   --gold:       #c9a227;
   --gold-dim:   #8a6f1a;
@@ -21,15 +21,17 @@
   --text-mid:   #5a4e35;
   --text-muted: #9a8a6a;
   --text-light: #6b5e3e;
-  --teal:       #4a8a7c;
-  --border:     #3a3020;
+  --teal:       #ba1515;
+  --border:     #85632d;
   --ep-badge:   #c9a22720;
+  --purple-drk: #12021c;
+  --purple-wht: #290a38;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background: var(--purple-drk);
   color: var(--cream);
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
@@ -45,6 +47,7 @@ header {
   padding: 18px 40px;
   border-bottom: 1px solid var(--border);
   position: relative;
+  background: var(--purple-wht);
 }
 
 header img{
