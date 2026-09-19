@@ -24,13 +24,20 @@
       ⌂ Inicio
     </button>
 
-    <div class="ep-badge" id="epBadge">EP.1/8</div>
+    <div class="header-meta">
+      <div class="lives-hud" id="livesHud" title="Completar una lección gasta 1 vida. Se restablecen a las 12 horas.">
+        <div class="lives-hearts" id="livesHearts"></div>
+        <span class="lives-timer" id="livesTimer"></span>
+      </div>
+      <div class="ep-badge" id="epBadge">EP.1/8</div>
+    </div>
   </header>
 
   <!-- ══ TAB NAV ══ -->
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" data-tab="historia" onclick="switchTab('historia')">Historia</button>
     <button class="tab-btn" data-tab="practica" onclick="switchTab('practica')">Práctica</button>
+    <button class="tab-btn" id="tabListening" data-tab="listening" onclick="switchTab('listening')">Listening</button>
     <button class="tab-btn" data-tab="diario" onclick="switchTab('diario')">Diario</button>
   </div>
 
@@ -75,6 +82,11 @@
         <div class="level-eyebrow">PASO 1</div>
         <h3>¿Cuál es tu nivel actual de inglés?</h3>
         <div class="level-options">
+          <div class="level-opt" data-level="basico" onclick="selectLevel(this)">
+            <div class="level-icon">🎧</div>
+            <div class="level-name">Básico</div>
+            <div class="level-code">A1-A2</div>
+          </div>
           <div class="level-opt" data-level="intermedio" onclick="selectLevel(this)">
             <div class="level-icon">📻</div>
             <div class="level-name">Intermedio</div>
@@ -105,6 +117,7 @@
         </div>
         <div id="epList"></div>
       </div>
+      <div id="advanceWrap"></div>
       <div class="footer-note" style="margin-top:28px;">
         — transmisión privada · tu progreso se guarda automáticamente —
       </div>
@@ -137,6 +150,23 @@
         <button class="btn-complete" id="btnComplete">
           Responder preguntas →
         </button>
+      </div>
+    </div>
+
+    <!-- ══ PANTALLA: REPRODUCTOR LISTENING ══ -->
+    <div class="screen" id="screen-listen-player">
+      <div class="reader-header">
+        <button class="back-btn" onclick="goBackListening()">← Lecciones</button>
+        <span class="reader-ep-label" id="listenEpLabel"></span>
+      </div>
+      <div id="listeningMount"></div>
+    </div>
+
+    <!-- ══ PANTALLA: HUB LISTENING ══ -->
+    <div class="screen" id="screen-listening">
+      <div id="listeningHub"></div>
+      <div class="footer-note" style="margin-top:28px;">
+        — transmisión privada · tu progreso se guarda automáticamente —
       </div>
     </div>
 
@@ -192,6 +222,8 @@
 
   </main>
 
+  <script src="data-a1.js"></script>
+  <script src="listening.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

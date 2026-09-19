@@ -9,10 +9,18 @@ const state = {
   levelLocked: false,
   currentTab: 'historia',
   completedEps: [],
+  a1Completed: [],       // lecciones A1–A2 completadas (IDs)
+  a1Advanced: false,     // true cuando el usuario avanzó de A1 a B1
   savedWords: [],
   conversations: 0,
   currentEp: null,
+  currentA1Lesson: null, // ID de la lección A1 actualmente abierta
+  lives: 3,
+  livesRestoreAt: null,  // timestamp (ms) en el que las 3 vidas vuelven
 };
+
+const MAX_LIVES = 3;
+const LIFE_RESTORE_MS = 12 * 60 * 60 * 1000;
 
 /* ─── DATOS DE EPISODIOS ─── */
 const EPISODES = [
@@ -1019,10 +1027,116 @@ function loadState() {
   }
   // Si ya hay un nivel guardado, queda fijado (evita mezclar progresos B1/C1)
   if (state.level) state.levelLocked = true;
+  if (!Array.isArray(state.a1Completed)) state.a1Completed = [];
+  if (typeof state.a1Advanced !== 'boolean') state.a1Advanced = false;
+  if (typeof state.lives !== 'number' || state.lives < 0 || state.lives > MAX_LIVES) {
+    state.lives = MAX_LIVES;
+  }
+  if (state.livesRestoreAt != null && typeof state.livesRestoreAt !== 'number') {
+    state.livesRestoreAt = null;
+  }
+  restoreLivesIfDue();
 }
 
 function saveState() {
   localStorage.setItem('speakfm_state', JSON.stringify(state));
+}
+
+/* ════════════════════════════════════════
+   VIDAS (3 por ciclo de 12 h)
+   ════════════════════════════════════════ */
+function restoreLivesIfDue() {
+  if (state.lives >= MAX_LIVES) {
+    state.lives = MAX_LIVES;
+    if (state.livesRestoreAt) {
+      state.livesRestoreAt = null;
+      saveState();
+    }
+    return false;
+  }
+  if (state.livesRestoreAt && Date.now() >= state.livesRestoreAt) {
+    state.lives = MAX_LIVES;
+    state.livesRestoreAt = null;
+    saveState();
+    return true;
+  }
+  return false;
+}
+
+function formatLivesCountdown() {
+  const remain = Math.max(0, (state.livesRestoreAt || 0) - Date.now());
+  const totalSec = Math.ceil(remain / 1000);
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  const pad = n => String(n).padStart(2, '0');
+  if (h > 0) return `${h} h ${pad(m)} min`;
+  return `${pad(m)}:${pad(s)}`;
+}
+
+function livesWaitMessage() {
+  restoreLivesIfDue();
+  if (state.lives > 0) return '';
+  if (state.livesRestoreAt) {
+    return `Sin vidas. Se restablecen en ${formatLivesCountdown()}`;
+  }
+  return 'Sin vidas. Espera 12 horas para que se restablezcan';
+}
+
+function canSpendLife() {
+  restoreLivesIfDue();
+  return state.lives > 0;
+}
+
+function consumeLife() {
+  restoreLivesIfDue();
+  if (state.lives <= 0) return false;
+  if (!state.livesRestoreAt) {
+    state.livesRestoreAt = Date.now() + LIFE_RESTORE_MS;
+  }
+  state.lives -= 1;
+  saveState();
+  renderLives();
+  return true;
+}
+
+function livesLeftLabel() {
+  if (state.lives <= 0) {
+    return ` Sin vidas: se restablecen en ${formatLivesCountdown()}`;
+  }
+  return ` · ${state.lives} vida${state.lives === 1 ? '' : 's'} restante${state.lives === 1 ? '' : 's'}`;
+}
+
+function renderLives() {
+  restoreLivesIfDue();
+  const heartsEl = document.getElementById('livesHearts');
+  const timerEl  = document.getElementById('livesTimer');
+  if (!heartsEl) return;
+
+  heartsEl.innerHTML = '';
+  for (let i = 0; i < MAX_LIVES; i++) {
+    const span = document.createElement('span');
+    span.className = 'life-heart' + (i < state.lives ? '' : ' empty');
+    span.textContent = '♥';
+    heartsEl.appendChild(span);
+  }
+
+  if (timerEl) {
+    if (state.lives < MAX_LIVES && state.livesRestoreAt) {
+      timerEl.textContent = formatLivesCountdown();
+    } else {
+      timerEl.textContent = '';
+    }
+  }
+}
+
+function startLivesTicker() {
+  renderLives();
+  setInterval(() => {
+    const restored = restoreLivesIfDue();
+    renderLives();
+    if (restored) showToast('¡Tus 3 vidas se restablecieron!');
+  }, 1000);
 }
 
 /* ════════════════════════════════════════
@@ -1049,6 +1163,12 @@ function updateDials(pct) {
 }
 
 function calcPct() {
+  if (isBasico() && !state.a1Advanced) {
+    const total   = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+    const a1Pct   = (state.a1Completed.length / total) * 80;
+    const wordPct = Math.min(state.savedWords.length / 10, 1) * 20;
+    return Math.min(a1Pct + wordPct, 100);
+  }
   const epPct    = (state.completedEps.length / 8) * 70;
   const wordPct  = Math.min(state.savedWords.length / 10, 1) * 20;
   const convoPct = Math.min(state.conversations / 5, 1) * 10;
@@ -1107,7 +1227,11 @@ function sintonizar() {
   saveState();
   applyLevelLockUI();
   showMainPhase();
-  showToast('¡Frecuencia sintonizada! Episodio 1 desbloqueado 📻');
+  if (isBasico()) {
+    showToast('¡Frecuencia sintonizada! Lección 1 desbloqueada 📻');
+  } else {
+    showToast('¡Frecuencia sintonizada! Episodio 1 desbloqueado 📻');
+  }
 }
 
 /* ════════════════════════════════════════
@@ -1118,6 +1242,15 @@ function showMainPhase() {
   document.getElementById('tabNav').style.display      = 'flex';
   document.getElementById('epBadge').style.display     = 'block';
   document.getElementById('btnHome').classList.add('visible');
+
+  // Mostrar u ocultar tab Listening según nivel
+  applyListeningTabVisibility();
+
+  // Update ep/lesson badge
+  if (isBasico() && !state.a1Advanced) {
+    const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+    document.getElementById('epBadge').textContent = `A1 ${state.a1Completed.length}/${total}`;
+  }
 
   buildEpList();
   buildDiario();
@@ -1183,31 +1316,108 @@ document.addEventListener('DOMContentLoaded', () => {
    NAVEGACIÓN ENTRE TABS
    ════════════════════════════════════════ */
 function switchTab(tab) {
+  // Redirigir tab Listening a Historia si el usuario todavía está en A1 básico
+  if (tab === 'listening' && state.level === 'basico' && !state.a1Advanced) {
+    showToast('El listening se desbloquea al avanzar al nivel B1–B2');
+    tab = 'historia';
+  }
+
   state.currentTab = tab;
 
+  // Actualizar botones del nav
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === tab);
   });
 
-  ['historia', 'practica', 'diario'].forEach(t => {
-    document.getElementById(`screen-${t}`).classList.toggle('active', t === tab);
+  // Mostrar / ocultar pantallas
+  ['historia', 'practica', 'diario', 'listening'].forEach(t => {
+    const el = document.getElementById(`screen-${t}`);
+    if (el) el.classList.toggle('active', t === tab);
   });
 
-  // Ocultar lector si estaba abierto
-  document.getElementById('screen-reader').classList.remove('active');
+  // Ocultar siempre el lector y el player de listening al cambiar tab
+  const screenReader = document.getElementById('screen-reader');
+  if (screenReader) screenReader.classList.remove('active');
+  const screenListenPlayer = document.getElementById('screen-listen-player');
+  if (screenListenPlayer) screenListenPlayer.classList.remove('active');
 
-  if (tab === 'diario')   buildDiario();
-  if (tab === 'practica') buildPractica();
+  // Builders por tab
+  if (tab === 'diario')    buildDiario();
+  if (tab === 'practica')  buildPractica();
+  if (tab === 'listening') buildListeningHub();
+  if (tab === 'historia' && isBasico() && !state.a1Advanced) buildEpList();
   hideQuiz();
 }
 
 /* ════════════════════════════════════════
-   LISTA DE EPISODIOS
+   HELPERS DE NIVEL
+   ════════════════════════════════════════ */
+function isBasico() {
+  return state.level === 'basico';
+}
+
+/**
+ * Oculta el tab Listening solo cuando el nivel es básico A1 puro
+ * (antes de avanzar a B1). En todos los demás casos lo muestra.
+ */
+function applyListeningTabVisibility() {
+  const tabListening = document.getElementById('tabListening');
+  if (!tabListening) return;
+  const hide = (state.level === 'basico') && !state.a1Advanced;
+  tabListening.style.display = hide ? 'none' : '';
+}
+
+function allA1Done() {
+  const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+  return state.a1Completed.length >= total;
+}
+
+/* ════════════════════════════════════════
+   LISTA DE EPISODIOS / LECCIONES A1
    ════════════════════════════════════════ */
 function buildEpList() {
   const list = document.getElementById('epList');
   list.innerHTML = '';
 
+  /* ── Nivel básico: mostrar lecciones A1 ── */
+  if (isBasico()) {
+    const note = document.getElementById('epListNote');
+    if (note) {
+      note.textContent = 'Nivel A1–A2: lee cada historia y responde las 6 preguntas para desbloquear la siguiente lección. Completa todas para avanzar al nivel B1–B2.';
+    }
+
+    A1_LESSONS.forEach(lesson => {
+      const unlocked  = lesson.id === 1 || state.a1Completed.includes(lesson.id - 1);
+      const completed = state.a1Completed.includes(lesson.id);
+      const isFirst   = lesson.id === 1 && !completed;
+
+      const div = document.createElement('div');
+      div.className = [
+        'ep-item',
+        !unlocked  ? 'locked'    : '',
+        completed  ? 'completed' : '',
+        isFirst    ? 'active-ep' : '',
+      ].filter(Boolean).join(' ');
+
+      const lockNote = !unlocked
+        ? '🔒 Bloqueada'
+        : (!completed ? 'Lee y responde para continuar' : '');
+
+      div.innerHTML = `
+        <div class="ep-num">${completed ? '✓' : lesson.id}</div>
+        <div class="ep-title">${lesson.title}${lockNote ? `<div class="ep-sub">${lockNote}</div>` : ''}</div>
+      `;
+
+      if (unlocked) div.onclick = () => openA1Lesson(lesson.id);
+      list.appendChild(div);
+    });
+
+    /* ── Botón de avance de nivel ── */
+    buildAdvanceButton();
+    return;
+  }
+
+  /* ── Niveles B1-B2 y C1: episodios normales ── */
   const note = document.getElementById('epListNote');
   if (note) {
     note.textContent = isC1()
@@ -1240,6 +1450,230 @@ function buildEpList() {
     if (unlocked) div.onclick = () => openEpisode(ep.id);
     list.appendChild(div);
   });
+}
+
+/* ════════════════════════════════════════
+   BOTÓN "AVANZAR AL SIGUIENTE NIVEL" (A1 → B1)
+   ════════════════════════════════════════ */
+function buildAdvanceButton() {
+  const wrap = document.getElementById('advanceWrap');
+  if (!wrap) return;
+
+  const done  = allA1Done();
+  const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+  const count = state.a1Completed.length;
+
+  wrap.innerHTML = `
+    <div class="advance-card${done ? ' advance-unlocked' : ''}">
+      <div class="advance-icon">${done ? '🚀' : '🔒'}</div>
+      <div class="advance-info">
+        <div class="advance-title">${done ? 'Nivel B1–B2 desbloqueado' : 'Avanzar al siguiente nivel'}</div>
+        <div class="advance-sub">
+          ${done
+            ? 'Has completado todas las lecciones A1–A2. ¡Estás listo para B1–B2!'
+            : `Completa todas las lecciones para desbloquear B1–B2 (${count}/${total} completadas)`}
+        </div>
+      </div>
+      <button
+        class="btn-advance${done ? '' : ' btn-advance-locked'}"
+        ${done ? '' : 'disabled'}
+        onclick="${done ? 'advanceToB1()' : ''}"
+      >
+        ${done ? 'Avanzar a B1–B2 →' : '🔒 Bloqueado'}
+      </button>
+    </div>
+  `;
+}
+
+function advanceToB1() {
+  if (!allA1Done()) {
+    showToast('Completa todas las lecciones A1 primero');
+    return;
+  }
+  // Cambiar nivel a intermedio, mantener historial A1
+  state.level       = 'intermedio';
+  state.a1Advanced  = true;
+  state.levelLocked = true;
+  saveState();
+
+  // Mostrar tab Listening ahora que es B1
+  applyListeningTabVisibility();
+
+  // Update badge to episode mode
+  const nextEp = 1;
+  const badge  = document.getElementById('epBadge');
+  if (badge) badge.textContent = `EP.${nextEp}/8`;
+
+  applyLevelLockUI();
+  buildEpList();
+  buildDiario();
+  buildPractica();
+  showToast('¡Nivel B1–B2 desbloqueado! Bienvenido a la siguiente frecuencia 📻');
+}
+
+/* ════════════════════════════════════════
+   LECTOR DE LECCIÓN A1
+   ════════════════════════════════════════ */
+function openA1Lesson(id) {
+  const lesson = getA1Lesson(id);
+  if (!lesson) return;
+  state.currentA1Lesson = id;
+
+  // Ocultar lista, mostrar lector
+  document.getElementById('screen-historia').classList.remove('active');
+  document.getElementById('screen-reader').classList.add('active');
+  document.getElementById('readerEpLabel').textContent = `LECCIÓN ${lesson.id} DE ${a1LessonCount()}`;
+  document.getElementById('readerTitle').textContent   = lesson.title;
+  document.getElementById('readerBody').innerHTML      = lesson.story || '';
+
+  // Attacher tooltips de vocabulario
+  attachWordHighlights();
+
+  hideQuiz();
+  const actions = document.getElementById('readerActions');
+  actions.style.display = 'flex';
+
+  const btn     = document.getElementById('btnComplete');
+  const already = state.a1Completed.includes(id);
+
+  if (already) {
+    btn.textContent   = '✓ Ya completada';
+    btn.style.opacity = '0.6';
+    btn.onclick       = null;
+  } else {
+    btn.textContent   = 'Responder preguntas →';
+    btn.style.opacity = '1';
+    btn.onclick       = showA1Quiz;
+  }
+}
+
+function showA1Quiz() {
+  const lesson = getA1Lesson(state.currentA1Lesson);
+  if (!lesson) return;
+  if (!state.a1Completed.includes(lesson.id) && !canSpendLife()) {
+    showToast(livesWaitMessage());
+    return;
+  }
+  hideQuiz();
+  renderA1Quiz(lesson);
+  document.querySelector('#quizPanel .quiz-eyebrow').textContent = 'COMPRENSIÓN · A1–A2';
+  document.getElementById('quizPanel').classList.add('visible');
+  document.getElementById('readerActions').style.display = 'none';
+  document.getElementById('quizPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderA1Quiz(lesson) {
+  const form = document.getElementById('quizForm');
+  form.innerHTML = lesson.quiz.map((item, qi) => `
+    <div class="quiz-item" data-q="${qi}">
+      <div class="quiz-q">${qi + 1}. ${item.q}</div>
+      ${item.options.map((opt, oi) => `
+        <label class="quiz-opt">
+          <input type="radio" name="q${qi}" value="${oi}" required />
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function submitA1Quiz() {
+  const lesson = getA1Lesson(state.currentA1Lesson);
+  if (!lesson) return;
+  if (!state.a1Completed.includes(lesson.id) && !canSpendLife()) {
+    showToast(livesWaitMessage());
+    return;
+  }
+  const quiz    = lesson.quiz;
+  const answers = quiz.map((_, qi) => {
+    const sel = document.querySelector(`input[name="q${qi}"]:checked`);
+    return sel ? Number(sel.value) : null;
+  });
+
+  if (answers.some(a => a === null)) {
+    showToast('Responde todas las preguntas antes de comprobar');
+    return;
+  }
+
+  let correct = 0;
+  quiz.forEach((item, qi) => {
+    const block   = document.querySelector(`.quiz-item[data-q="${qi}"]`);
+    const isRight = answers[qi] === item.answer;
+    block.classList.remove('correct', 'wrong');
+    block.classList.add(isRight ? 'correct' : 'wrong');
+    if (isRight) correct++;
+  });
+
+  document.querySelectorAll('#quizForm input').forEach(inp => {
+    inp.disabled = true;
+    inp.closest('.quiz-opt').classList.add('disabled');
+  });
+
+  const feedback   = document.getElementById('quizFeedback');
+  const allCorrect = correct === quiz.length;
+
+  if (allCorrect) {
+    feedback.className   = 'quiz-feedback visible pass';
+    feedback.textContent = '¡Perfecto! Has completado esta lección. La siguiente está desbloqueada.';
+    document.getElementById('btnSubmitQuiz').style.display = 'none';
+    document.getElementById('btnRetryQuiz').style.display  = 'none';
+    setTimeout(() => finishA1Lesson(), 900);
+  } else {
+    feedback.className   = 'quiz-feedback visible fail';
+    feedback.textContent = `Has acertado ${correct} de ${quiz.length}. Revisa la historia e inténtalo de nuevo.`;
+    document.getElementById('btnSubmitQuiz').style.display = 'none';
+    document.getElementById('btnRetryQuiz').style.display  = 'block';
+    showToast('Aún no. Puedes intentarlo de nuevo');
+  }
+}
+
+function retryA1Quiz() {
+  const lesson = getA1Lesson(state.currentA1Lesson);
+  if (!lesson) return;
+  renderA1Quiz(lesson);
+  document.getElementById('quizFeedback').className   = 'quiz-feedback';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('btnSubmitQuiz').style.display = '';
+  document.getElementById('btnRetryQuiz').style.display  = 'none';
+}
+
+function finishA1Lesson() {
+  const id = state.currentA1Lesson;
+  if (!state.a1Completed.includes(id)) {
+    if (!consumeLife()) {
+      showToast(livesWaitMessage());
+      return;
+    }
+    state.a1Completed.push(id);
+    saveState();
+  }
+
+  const total = a1LessonCount();
+  const done  = state.a1Completed.length;
+
+  // Update badge
+  const badge = document.getElementById('epBadge');
+  if (badge) badge.textContent = `A1 ${done}/${total}`;
+
+  if (done >= total) {
+    showToast('¡Has completado todas las lecciones A1! Desbloquea el nivel B1–B2 📻' + livesLeftLabel());
+  } else {
+    showToast(`Lección ${id} completada. ${total - done} lección${total - done !== 1 ? 'es' : ''} restante${total - done !== 1 ? 's' : ''}` + livesLeftLabel());
+  }
+
+  updateDials(calcPct());
+  goBackA1();
+}
+
+function goBackA1() {
+  hideQuiz();
+  document.getElementById('readerActions').style.display = 'flex';
+  document.getElementById('screen-reader').classList.remove('active');
+  document.getElementById('screen-historia').classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === 'historia');
+  });
+  buildEpList();
 }
 
 /* ════════════════════════════════════════
@@ -1285,6 +1719,10 @@ function scrollToStory() {
 
 function showQuiz() {
   const ep = EPISODES.find(e => e.id === state.currentEp);
+  if (ep && !state.completedEps.includes(ep.id) && !canSpendLife()) {
+    showToast(livesWaitMessage());
+    return;
+  }
   hideQuiz();
   renderQuiz(ep);
   document.querySelector('#quizPanel .quiz-eyebrow').textContent = quizLabel();
@@ -1294,7 +1732,16 @@ function showQuiz() {
 }
 
 function submitQuiz() {
+  // Dispatch to A1 handler when in basico level
+  if (isBasico() && state.currentA1Lesson !== null) {
+    submitA1Quiz();
+    return;
+  }
   const ep = EPISODES.find(e => e.id === state.currentEp);
+  if (ep && !state.completedEps.includes(ep.id) && !canSpendLife()) {
+    showToast(livesWaitMessage());
+    return;
+  }
   const quiz = episodeQuiz(ep);
   const answers = quiz.map((_, qi) => {
     const selected = document.querySelector(`input[name="q${qi}"]:checked`);
@@ -1339,6 +1786,10 @@ function submitQuiz() {
 }
 
 function retryQuiz() {
+  if (isBasico() && state.currentA1Lesson !== null) {
+    retryA1Quiz();
+    return;
+  }
   const ep = EPISODES.find(e => e.id === state.currentEp);
   renderQuiz(ep);
   document.getElementById('quizFeedback').className = 'quiz-feedback';
@@ -1417,6 +1868,10 @@ function completeEpisode() {
 function finishEpisode() {
   const id = state.currentEp;
   if (!state.completedEps.includes(id)) {
+    if (!consumeLife()) {
+      showToast(livesWaitMessage());
+      return;
+    }
     state.completedEps.push(id);
     saveState();
   }
@@ -1425,9 +1880,9 @@ function finishEpisode() {
   document.getElementById('epBadge').textContent = `EP.${nextEp}/8`;
 
   if (id < 8) {
-    showToast(`Frecuencia ${id} sintonizada. Episodio ${nextEp} desbloqueado 📻`);
+    showToast(`Frecuencia ${id} sintonizada. Episodio ${nextEp} desbloqueado 📻` + livesLeftLabel());
   } else {
-    showToast('Has sintonizado todas las frecuencias 🏆');
+    showToast('Has sintonizado todas las frecuencias 🏆' + livesLeftLabel());
   }
 
   updateDials(calcPct());
@@ -1437,6 +1892,10 @@ function finishEpisode() {
 }
 
 function goBack() {
+  if (isBasico()) {
+    goBackA1();
+    return;
+  }
   hideQuiz();
   document.getElementById('readerActions').style.display = 'flex';
   document.getElementById('screen-reader').classList.remove('active');
@@ -1453,6 +1912,19 @@ let chatHistory = [];
 
 function buildPractica() {
   const container = document.getElementById('practicaContent');
+
+  if (isBasico() && !state.a1Advanced) {
+    const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+    const done  = state.a1Completed.length;
+    container.innerHTML = `
+      <div class="practica-locked-card">
+        <div class="eyebrow">PRÁCTICA</div>
+        <h3>${done === 0 ? 'Todavía no hay escenas disponibles' : `${done} de ${total} lecciones completadas`}</h3>
+        <p>La práctica de conversación se desbloquea cuando avances al nivel B1–B2. Completa las ${total} lecciones A1–A2 en la pestaña "Historia" para acceder.</p>
+        ${done > 0 ? `<div class="a1-progress-mini"><div class="a1-progress-bar" style="width:${Math.round((done/total)*100)}%"></div></div>` : ''}
+      </div>`;
+    return;
+  }
 
   if (state.completedEps.length === 0) {
     container.innerHTML = `
@@ -1571,7 +2043,12 @@ function removeTyping() {
    ════════════════════════════════════════ */
 function buildDiario() {
   // Estadísticas
-  document.getElementById('statEpisodes').textContent = `${state.completedEps.length}/8`;
+  if (isBasico() && !state.a1Advanced) {
+    const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+    document.getElementById('statEpisodes').textContent = `${state.a1Completed.length}/${total}`;
+  } else {
+    document.getElementById('statEpisodes').textContent = `${state.completedEps.length}/8`;
+  }
   document.getElementById('statWords').textContent    = state.savedWords.length;
   document.getElementById('statConvos').textContent   = state.conversations;
 
@@ -1646,6 +2123,9 @@ if (state.phase === 'main') {
   document.getElementById('epBadge').style.display = 'block';
   document.getElementById('btnHome').classList.add('visible');
 
+  // Mostrar u ocultar tab Listening según nivel
+  applyListeningTabVisibility();
+
   applyLevelLockUI();
 
   buildEpList();
@@ -1654,14 +2134,21 @@ if (state.phase === 'main') {
   switchTab('historia');
   updateDials(calcPct());
 
-  // Badge de episodio actual
-  const nextEp = state.completedEps.length > 0
-    ? Math.min(Math.max(...state.completedEps) + 1, 8)
-    : 1;
-  document.getElementById('epBadge').textContent = `EP.${nextEp}/8`;
+  // Badge de episodio/lección actual
+  if (isBasico() && !state.a1Advanced) {
+    const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
+    document.getElementById('epBadge').textContent = `A1 ${state.a1Completed.length}/${total}`;
+  } else {
+    const nextEp = state.completedEps.length > 0
+      ? Math.min(Math.max(...state.completedEps) + 1, 8)
+      : 1;
+    document.getElementById('epBadge').textContent = `EP.${nextEp}/8`;
+  }
 
 } else {
   // Fase onboarding
   updateDials(0);
   applyLevelLockUI();
 }
+
+startLivesTicker();
