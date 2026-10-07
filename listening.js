@@ -159,7 +159,7 @@ function goBackToPlayer() {
   document.getElementById('playerCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-async function startQuiz() {
+function startQuiz() {
   const idx = listeningState.idx;
   if (!listeningState.completed.includes(idx) && typeof canSpendLife === 'function' && !canSpendLife()) {
     lsShowToast(typeof livesWaitMessage === 'function' ? livesWaitMessage() : 'Sin vidas. Espera 12 horas para que se restablezcan');
@@ -170,64 +170,10 @@ async function startQuiz() {
   qcard.classList.add('visible');
   document.getElementById('quizTitle').textContent = LABELS[idx];
   document.getElementById('quizActions').style.display = 'none';
-  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('lsQuizFeedback').className = 'quiz-feedback';
   document.getElementById('btnRetry').style.display = 'none';
   qcard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  document.getElementById('quizBody').innerHTML = `
-    <div class="quiz-loading">
-      <div class="spinner"></div><br>
-      Analizando el audio y generando 6 preguntas…
-    </div>`;
-
-  // Mostrar transcripción real mientras carga el quiz
-  if (TRANSCRIPTS[idx]) {
-    listeningState.transcripts[idx] = TRANSCRIPTS[idx];
-    const box = document.getElementById('transcriptBox');
-    if (box) box.textContent = TRANSCRIPTS[idx];
-  }
-
-  try {
-    const storyText = TRANSCRIPTS[idx] || '';
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 2000,
-        messages: [{
-          role: 'user',
-          content: `You are a listening comprehension teacher for Spanish-speaking English learners at A1–A2 level in the Speak FM app.
-
-Here is the EXACT text of the audio story the student just listened to:
-
----
-${storyText}
----
-
-Generate EXACTLY 6 multiple-choice comprehension questions based ONLY on this text.
-- ALL questions and answer options must be in SPANISH (the learners are Spanish speakers)
-- Keep language very simple (A1–A2 level Spanish)
-- Questions must have 3 options each, only ONE correct
-- Test: main idea, specific details, sequence of events, characters, feelings, and conclusion
-
-Return ONLY valid JSON, no markdown, no explanation:
-{"questions": [{"q": "...", "options": ["...", "...", "..."], "answer": 0}, {"q": "...", "options": ["...", "...", "..."], "answer": 1}, {"q": "...", "options": ["...", "...", "..."], "answer": 0}, {"q": "...", "options": ["...", "...", "..."], "answer": 2}, {"q": "...", "options": ["...", "...", "..."], "answer": 1}, {"q": "...", "options": ["...", "...", "..."], "answer": 0}]}`
-        }]
-      })
-    });
-
-    const data = await resp.json();
-    const raw   = data.content?.map(c => c.text||'').join('') || '';
-    const clean = raw.replace(/```json|```/g,'').trim();
-    const parsed = JSON.parse(clean);
-    listeningState.quiz = { transcript: TRANSCRIPTS[idx], questions: parsed.questions };
-    renderQuiz(parsed.questions);
-
-  } catch(err) {
-    console.error(err);
-    useFallbackQuiz(idx);
-  }
+  useFallbackQuiz(idx);
 }
 
 function useFallbackQuiz(idx) {
@@ -285,10 +231,10 @@ function useFallbackQuiz(idx) {
   ];
 
   listeningState.quiz = { transcript: TRANSCRIPTS[idx], questions: pools[idx] };
-  renderQuiz(listeningState.quiz.questions);
+  renderListeningQuiz(listeningState.quiz.questions);
 }
 
-function renderQuiz(questions) {
+function renderListeningQuiz(questions) {
   document.getElementById('quizBody').innerHTML = questions.map((item, qi) => `
     <div class="quiz-item" data-q="${qi}">
       <div class="quiz-q">${qi + 1}. ${item.q}</div>
@@ -303,7 +249,7 @@ function renderQuiz(questions) {
   document.getElementById('quizActions').style.display = 'flex';
   document.getElementById('btnCheck').style.display = '';
   document.getElementById('btnRetry').style.display = 'none';
-  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('lsQuizFeedback').className = 'quiz-feedback';
 }
 
 function checkAnswers() {
@@ -329,7 +275,7 @@ function checkAnswers() {
     });
   });
 
-  const fb    = document.getElementById('quizFeedback');
+  const fb    = document.getElementById('lsQuizFeedback');
   const allOk = correct === quiz.length;
   if (allOk) {
     fb.className   = 'quiz-feedback pass';
@@ -346,7 +292,7 @@ function checkAnswers() {
 
 function retryQuiz() {
   if (!listeningState.quiz) return;
-  renderQuiz(listeningState.quiz.questions);
+  renderListeningQuiz(listeningState.quiz.questions);
 }
 
 function completeLesson(idx) {
@@ -415,7 +361,7 @@ function buildListeningHub() {
           <button class="btn-check" id="btnCheck" onclick="checkAnswers()">Comprobar respuestas</button>
           <button class="btn-retry" id="btnRetry" onclick="retryQuiz()">Intentar de nuevo</button>
         </div>
-        <div class="quiz-feedback" id="quizFeedback"></div>
+        <div class="quiz-feedback" id="lsQuizFeedback"></div>
       </div>
     </div>
   `;

@@ -2,11 +2,7 @@
    Speak FM · styles.css
    ════════════════════════════════════════ */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after {box-sizing: border-box; margin: 0; padding: 0;}
 
 /* ── VARIABLES ── */
 :root {
@@ -30,60 +26,25 @@
 
 html { scroll-behavior: smooth; }
 
-body {
-  background: var(--purple-drk);
-  color: var(--cream);
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-}
+body {background: var(--purple-drk); color: var(--cream); font-family: 'Inter', sans-serif;
+  min-height: 100vh;}
 
 /* ════════════════════════════════════════
    HEADER
    ════════════════════════════════════════ */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 40px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  background: var(--purple-wht);
-}
+header {display: flex; align-items: center; justify-content: space-between; gap: 5px;
+        padding: 18px 24px; border-bottom: 1px solid var(--border); position: relative; background: var(--purple-wht);}
 
-header img{
-  width: 60px;
+header img{ width: 60px;}
 
-}
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.logo-wrap {display: flex; align-items: center; gap: 12px;}
 
-.logo-icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 12px;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
+.logo-icon {width: 70px; height: 70px; border-radius: 12px; background: black; display: flex;
+  align-items: center; justify-content: center; font-size: 22px;}
 
-.logo-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: var(--cream);
-  line-height: 1;
-}
+.logo-text h1 {font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); line-height: 1;}
 
-.logo-text span {
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  color: var(--gold);
-  font-weight: 500;
-}
+.logo-text span {font-size: 0.62rem; letter-spacing: 0.18em; color: var(--gold); font-weight: 500;}
 
 /* Botón volver al inicio */
 .btn-home {
@@ -113,25 +74,14 @@ header img{
   display: block;
 }
 
-.header-meta {
-  position: absolute;
-  right: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+.header-meta {display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
 }
 
-.lives-hud {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
+.lives-hud {display: flex; align-items: flex-end; gap: 2px;}
 
 .lives-hearts {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
 .life-heart {
@@ -1480,9 +1430,29 @@ main {
   transition: width 0.4s ease;
 }
 
-@media (max-width: 480px) {
-  .advance-card { flex-wrap: wrap; }
-  .btn-advance  { width: 100%; text-align: center; }
+@media (max-width: 768px) {
+
+header {
+flex-wrap: wrap;
+justify-content: center;
+text-align: center;
+gap: 12px;
+} 
+
+.logo-wrap {
+width: 100%;
+justify-content: center;
+}
+
+.header-meta {
+align-items: center;
+} 
+
+#buyLivesBtn {
+width: auto;
+min-width: 180px;
+} 
+
 }
 
 /* ════════════════════════════════════════
@@ -1642,26 +1612,25 @@ main {
 }
 .back-btn:hover { border-color: var(--gold); }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .player-card, .quiz-card { padding: 16px 14px; }
 }
 
 #btnLogin,
-#buyLivesBtn {
-  background: var(--gold);
-  color: #1a1208;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  padding: 8px 15px;
-}
+#buyLivesBtn { background: var(--gold);
+color: #1a1208;
+border: none;
+border-radius: 12px;
+padding: 12px 20px;
+font-weight: 600;
+font-family: 'Inter', sans-serif;
+cursor: pointer;
+white-space: nowrap;
+transition: transform .2s ease, opacity .2s ease;}
 
-.banner #buyLivesBtn {
-  position: relative;
-  left: 320px;
-  margin-top: -20px;
+#buyLivesBtn:hover {
+opacity: .9;
+transform: translateY(-2px);
 }
 
 #btnLogin { margin-top: 18px; padding: 12px 18px; width: 100%; }
