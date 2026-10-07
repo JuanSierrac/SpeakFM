@@ -47,22 +47,10 @@ header img{ width: 60px;}
 .logo-text span {font-size: 0.62rem; letter-spacing: 0.18em; color: var(--gold); font-weight: 500;}
 
 /* Botón volver al inicio */
-.btn-home {
-  position: absolute;
-  left: 40px;
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--text-muted);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  display: none;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  letter-spacing: 0.04em;
-}
+.btn-home {position: absolute; left: 40px; background: transparent; border: 1.5px solid var(--border); color: var(--text-muted);
+  font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 6px 14px;
+  border-radius: 20px; cursor: pointer; display: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
+  letter-spacing: 0.04em;}
 
 .btn-home:hover {
   border-color: var(--gold-dim);
