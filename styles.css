@@ -52,60 +52,28 @@ header img{ width: 60px;}
   border-radius: 20px; cursor: pointer; display: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
   letter-spacing: 0.04em;}
 
-.btn-home:hover {
-  border-color: var(--gold-dim);
-  color: var(--gold);
-  background: #c9a22710;
-}
+.btn-home:hover {border-color: var(--gold-dim); color: var(--gold); background: #c9a22710;}
 
-.btn-home.visible {
-  display: block;
-}
+.btn-home.visible {display: block;}
 
-.header-meta {display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
-}
+.header-meta {display: flex; flex-direction: column; align-items: flex-end; gap: 6px;}
 
 .lives-hud {display: flex; align-items: flex-end; gap: 2px;}
 
-.lives-hearts {
-  display: flex;
-  gap: 8px;
-}
+.lives-hearts {display: flex; gap: 8px;}
 
-.life-heart {
-  font-size: 1.05rem;
-  line-height: 1;
-  color: #c45c6a;
-  text-shadow: 0 0 8px rgba(196, 92, 106, 0.45);
-  transition: opacity 0.2s, color 0.2s, transform 0.2s;
-}
+.life-heart {font-size: 1.05rem; line-height: 1; color: #c45c6a; text-shadow: 0 0 8px rgba(196, 92, 106, 0.45);
+  transition: opacity 0.2s, color 0.2s, transform 0.2s;}
 
-.life-heart.empty {
-  color: #5a3a48;
-  opacity: 0.42;
-  text-shadow: none;
-}
+.life-heart.empty {color: #5a3a48; opacity: 0.42; text-shadow: none;}
 
-.lives-timer {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--gold);
-  min-height: 0.8em;
-}
+.lives-timer {font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gold);
+  min-height: 0.8em;}
 
 /* Badge de episodio */
-.ep-badge {
-  background: var(--ep-badge);
-  border: 1px solid var(--gold-dim);
-  color: var(--gold);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 14px;
-  border-radius: 20px;
-  letter-spacing: 0.06em;
-  display: none;
-}
+.ep-badge {background: var(--ep-badge); border: 1px solid var(--gold-dim); color: var(--gold);
+  font-size: 0.72rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; letter-spacing: 0.06em;
+  display: none;}
 
 /* ════════════════════════════════════════
    TAB NAV
