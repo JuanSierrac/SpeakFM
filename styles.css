@@ -32,7 +32,7 @@ body {background: var(--purple-drk); color: var(--cream); font-family: 'Inter', 
 /* ════════════════════════════════════════
    HEADER
    ════════════════════════════════════════ */
-header {display: flex; align-items: center; justify-content: space-between; gap: 5px;
+header {display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 16px;
         padding: 18px 24px; border-bottom: 1px solid var(--border); position: relative; background: var(--purple-wht);}
 
 header img{ width: 60px;}
@@ -47,20 +47,22 @@ header img{ width: 60px;}
 .logo-text span {font-size: 0.62rem; letter-spacing: 0.18em; color: var(--gold); font-weight: 500;}
 
 /* Botón volver al inicio */
-.btn-home {position: absolute; left: 40px; background: transparent; border: 1.5px solid var(--border); color: var(--text-muted);
-  font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 6px 14px;
-  border-radius: 20px; cursor: pointer; display: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
+.btn-home {left: 40px; background: transparent; border: 1.5px solid var(--border); color: var(--text-muted);
+  font-family: 'Inter', sans-serif; font-weight: 500; padding: 6px 14px;
+  border-radius: 20px; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s;
   letter-spacing: 0.04em;}
 
 .btn-home:hover {border-color: var(--gold-dim); color: var(--gold); background: #c9a22710;}
 
 .btn-home.visible {display: block;}
 
-.header-meta {display: flex; flex-direction: column; align-items: flex-end; gap: 6px;}
+.header-nav   {display: flex; flex-direction: column; align-items: center; gap: 6px; justify-self: center;}
 
-.lives-hud {display: flex; align-items: flex-end; gap: 2px;}
+.header-lives {display: flex; align-items: center; gap: 12px; justify-self: end;}
 
-.lives-hearts {display: flex; gap: 8px;}
+.lives-hud    { position: relative; flex-direction: row; align-items: center;}
+
+.lives-hearts{ gap: 14px; align-items: center; }
 
 .life-heart {font-size: 1.05rem; line-height: 1; color: #c45c6a; text-shadow: 0 0 8px rgba(196, 92, 106, 0.45);
   transition: opacity 0.2s, color 0.2s, transform 0.2s;}
@@ -68,7 +70,8 @@ header img{ width: 60px;}
 .life-heart.empty {color: #5a3a48; opacity: 0.42; text-shadow: none;}
 
 .lives-timer {font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gold);
-  min-height: 0.8em;}
+  min-height: 0.8em; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  margin-top: 2px; min-height: 0; white-space: nowrap; }
 
 /* Badge de episodio */
 .ep-badge {background: var(--ep-badge); border: 1px solid var(--gold-dim); color: var(--gold);
@@ -78,15 +81,8 @@ header img{ width: 60px;}
 /* ════════════════════════════════════════
    TAB NAV
    ════════════════════════════════════════ */
-.tab-nav {
-  display: none;
-  max-width: 620px;
-  margin: 28px auto 0;
-  background: var(--bg-deep);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
+.tab-nav {display: none; max-width: 620px; margin: 28px auto 0; background: var(--bg-deep); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;}
 
 .tab-btn {
   flex: 1;
@@ -1276,9 +1272,12 @@ main {
    RESPONSIVE
    ════════════════════════════════════════ */
 @media (max-width: 480px) {
-  header         { padding: 16px 16px; }
-  .btn-home      { left: 16px; font-size: 0.72rem; padding: 5px 10px; }
-  .header-meta   { right: 16px; }
+    header         { grid-template-columns: 1fr auto; padding: 14px 16px; }
+  .header-nav    { justify-self: end; }
+  .header-lives  { grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; gap: 12px;
+                   padding-top: 12px; border-top: 1px solid var(--border); }
+  .header-lives #buyLivesBtn { flex: 1; padding: 10px 14px; }
+  .lives-hearts  { gap: 12px; }
   main           { padding: 0 12px 60px; }
   .card          { padding: 22px 20px; }
   .reader-body   { padding: 22px 18px; }
@@ -1387,28 +1386,8 @@ main {
 }
 
 @media (max-width: 768px) {
-
-header {
-flex-wrap: wrap;
-justify-content: center;
-text-align: center;
-gap: 12px;
-} 
-
-.logo-wrap {
-width: 100%;
-justify-content: center;
-}
-
-.header-meta {
-align-items: center;
-} 
-
-#buyLivesBtn {
-width: auto;
-min-width: 180px;
-} 
-
+  .advance-card { flex-wrap: wrap; }
+  .btn-advance  { width: 100%; text-align: center; }
 }
 
 /* ════════════════════════════════════════
@@ -1570,6 +1549,8 @@ min-width: 180px;
 
 @media (max-width: 600px) {
   .player-card, .quiz-card { padding: 16px 14px; }
+  .header-lives #buyLivesBtn { padding: 10px 18px; }
+  .lives-hearts  { gap: 12px; }
 }
 
 #btnLogin,
