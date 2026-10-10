@@ -18,11 +18,13 @@
   ],
   "hosting": {
     "public": ".",
-    "ignore": [
+      "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
-      "database/functions/**"
+      "database/functions/**",
+      "tools/**",
+      "logs/**"
     ]
   }
 }

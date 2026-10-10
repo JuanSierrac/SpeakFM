@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Speak FM – aprende inglés siguiendo una historia." />
   <title>Speak FM – Learn English via Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-
-  <!-- ══ HEADER ══ -->
-    <header class="banner">
+  <header class="banner">
     <div class="logo-wrap">
-      <div class="logo-icon"><img src="img/image.png" alt=""></div>
+      <div class="logo-icon">
+        <img src="img/image.png" alt="Speak FM" />
+      </div>
       <div class="logo-text">
         <h1>Speak FM</h1>
         <span>LEARN ENGLISH VIA STORY</span>
@@ -20,7 +23,7 @@
     </div>
 
     <div class="header-nav">
-      <button class="btn-home" id="btnHome" onclick="goHome()" title="Volver al inicio">⌂ Inicio</button>
+      <button type="button" class="btn-home" id="btnHome" onclick="goHome()" title="Volver al inicio">⌂ Inicio</button>
       <div class="ep-badge" id="epBadge">EP.1/8</div>
     </div>
 
@@ -29,41 +32,34 @@
         <div class="lives-hearts" id="livesHearts"></div>
         <span class="lives-timer" id="livesTimer"></span>
       </div>
-      <button id="buyLivesBtn">💖 Comprar vidas</button>
+      <button type="button" id="buyLivesBtn">💖 Comprar vidas</button>
     </div>
   </header>
-  <!-- ══ TAB NAV ══ -->
-  <div class="tab-nav" id="tabNav">
-    <button class="tab-btn active" data-tab="historia" onclick="switchTab('historia')">Historia</button>
-    <button class="tab-btn" data-tab="practica" onclick="switchTab('practica')">Práctica</button>
-    <button class="tab-btn" id="tabListening" data-tab="listening" onclick="switchTab('listening')">Listening</button>
-    <button class="tab-btn" data-tab="diario" onclick="switchTab('diario')">Diario</button>
-  </div>
 
-  <!-- Tooltip de palabras -->
-  <div class="tooltip" id="tooltip"></div>
+  <nav class="tab-nav" id="tabNav" aria-label="Secciones">
+    <button type="button" class="tab-btn active" data-tab="historia" onclick="switchTab('historia')">Historia</button>
+    <button type="button" class="tab-btn" data-tab="practica" onclick="switchTab('practica')">Práctica</button>
+    <button type="button" class="tab-btn" id="tabListening" data-tab="listening" onclick="switchTab('listening')">Listening</button>
+    <button type="button" class="tab-btn" data-tab="diario" onclick="switchTab('diario')">Diario</button>
+  </nav>
 
-  <!-- Toast de notificaciones -->
-  <div class="toast" id="toast"></div>
+  <div class="tooltip" id="tooltip" role="tooltip"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Modal de confirmación para volver al inicio -->
   <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <div class="modal-icon">⚠️</div>
-      <h3 class="modal-title">¿Volver al inicio?</h3>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-icon" aria-hidden="true">⚠️</div>
+      <h3 class="modal-title" id="modalTitle">¿Volver al inicio?</h3>
       <p class="modal-text">Tu progreso está guardado automáticamente. Podrás retomar desde donde lo dejaste.</p>
       <div class="modal-actions">
-        <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
-        <button class="modal-btn-confirm" onclick="confirmGoHome()">Sí, volver al inicio</button>
+        <button type="button" class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+        <button type="button" class="modal-btn-confirm" onclick="confirmGoHome()">Sí, volver al inicio</button>
       </div>
     </div>
   </div>
 
   <main>
-
-    <!-- ══ PANTALLA: ONBOARDING ══ -->
-    <div class="screen active" id="screen-onboarding">
-
+    <section class="screen active" id="screen-onboarding">
       <div class="dial-wrap">
         <div class="dial" id="mainDial">
           <div class="dial-needle" id="mainNeedle"></div>
@@ -73,7 +69,11 @@
 
       <div class="card">
         <div class="card-eyebrow">BIENVENIDO</div>
-        <h2>Aprende inglés siguiendo una historia real, no una lección aislada. <br> (Learn English by following a real story, not an isolated lesson) </h2>
+        <h2>
+          Aprende inglés siguiendo una historia real, no una lección aislada.
+          <br />
+          (Learn English by following a real story, not an isolated lesson)
+        </h2>
         <p>Vas a seguir "The Frequency", un misterio periodístico en 8 episodios. Lees, conversas con sus personajes en inglés y tu propio vocabulario va formando tu diario personal.</p>
       </div>
 
@@ -97,21 +97,17 @@
             <div class="level-code">C1</div>
           </div>
         </div>
-        <p class="level-lock-note" id="levelLockNote">Tu nivel ya está sintonizado. No puedes cambiar al otro. </p>
-        <button class="btn-primary" id="btnSintonizar" onclick="sintonizar()">
+        <p class="level-lock-note" id="levelLockNote">Tu nivel ya está sintonizado. No puedes cambiar al otro.</p>
+        <button type="button" class="btn-primary" id="btnSintonizar" onclick="sintonizar()">
           Sintonizar la frecuencia
         </button>
       </div>
 
-    <button id="btnLogin">
-      Entrar con Google
-    </button>
-
+      <button type="button" id="btnLogin">Entrar con Google</button>
       <div class="footer-note">— transmisión privada · tu progreso se guarda automáticamente —</div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: HISTORIA ══ -->
-    <div class="screen" id="screen-historia">
+    <section class="screen" id="screen-historia">
       <div class="ep-list-card">
         <div class="ep-list-header">
           <div class="eyebrow">FRECUENCIAS</div>
@@ -121,15 +117,14 @@
         <div id="epList"></div>
       </div>
       <div id="advanceWrap"></div>
-      <div class="footer-note" style="margin-top:28px;">
+      <div class="footer-note" style="margin-top: 28px;">
         — transmisión privada · tu progreso se guarda automáticamente —
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: LECTOR DE EPISODIO ══ -->
-    <div class="screen" id="screen-reader">
+    <section class="screen" id="screen-reader">
       <div class="reader-header">
-        <button class="back-btn" onclick="goBack()">← Episodios</button>
+        <button type="button" class="back-btn" onclick="goBack()">← Episodios</button>
         <span class="reader-ep-label" id="readerEpLabel"></span>
       </div>
       <div class="reader-title" id="readerTitle"></div>
@@ -149,41 +144,34 @@
       </div>
 
       <div class="reader-actions" id="readerActions">
-        <button class="btn-secondary" onclick="goBack()">← Volver</button>
-        <button class="btn-complete" id="btnComplete">
-          Responder preguntas →
-        </button>
+        <button type="button" class="btn-secondary" onclick="goBack()">← Volver</button>
+        <button type="button" class="btn-complete" id="btnComplete">Responder preguntas →</button>
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: REPRODUCTOR LISTENING ══ -->
-    <div class="screen" id="screen-listen-player">
+    <section class="screen" id="screen-listen-player">
       <div class="reader-header">
-        <button class="back-btn" onclick="goBackListening()">← Lecciones</button>
+        <button type="button" class="back-btn" onclick="goBackListening()">← Lecciones</button>
         <span class="reader-ep-label" id="listenEpLabel"></span>
       </div>
       <div id="listeningMount"></div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: HUB LISTENING ══ -->
-    <div class="screen" id="screen-listening">
+    <section class="screen" id="screen-listening">
       <div id="listeningHub"></div>
-      <div class="footer-note" style="margin-top:28px;">
+      <div class="footer-note" style="margin-top: 28px;">
         — transmisión privada · tu progreso se guarda automáticamente —
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: PRÁCTICA ══ -->
-    <div class="screen" id="screen-practica">
+    <section class="screen" id="screen-practica">
       <div id="practicaContent"></div>
-      <div class="footer-note" style="margin-top:28px;">
+      <div class="footer-note" style="margin-top: 28px;">
         — transmisión privada · tu progreso se guarda automáticamente —
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PANTALLA: DIARIO ══ -->
-    <div class="screen" id="screen-diario">
-
+    <section class="screen" id="screen-diario">
       <div class="diario-dial-wrap">
         <div class="diario-dial">
           <div class="diario-dial-needle" id="diarioDialNeedle"></div>
@@ -221,14 +209,12 @@
       </div>
 
       <div class="footer-note">— transmisión privada · tu progreso se guarda automáticamente —</div>
-    </div>
-
+    </section>
   </main>
 
-  <script src="data-a1.js"></script>
-  <script src="listening.js"></script>
-  <script src="app.js"></script>
+  <script src="js/data-a1.js"></script>
+  <script src="js/listening.js"></script>
+  <script src="js/app.js"></script>
   <script type="module" src="database/bootstrap.js"></script>
-
 </body>
 </html>

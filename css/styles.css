@@ -1272,7 +1272,7 @@ main {
    RESPONSIVE
    ════════════════════════════════════════ */
 @media (max-width: 480px) {
-    header         { grid-template-columns: 1fr auto; padding: 14px 16px; }
+  header         { grid-template-columns: 1fr auto; padding: 14px 16px; }
   .header-nav    { justify-self: end; }
   .header-lives  { grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; gap: 12px;
                    padding-top: 12px; border-top: 1px solid var(--border); }
@@ -1554,21 +1554,30 @@ main {
 }
 
 #btnLogin,
-#buyLivesBtn { background: var(--gold);
-color: #1a1208;
-border: none;
-border-radius: 12px;
-padding: 12px 20px;
-font-weight: 600;
-font-family: 'Inter', sans-serif;
-cursor: pointer;
-white-space: nowrap;
-transition: transform .2s ease, opacity .2s ease;}
-
-#buyLivesBtn:hover {
-opacity: .9;
-transform: translateY(-2px);
+#buyLivesBtn {
+  background: var(--gold);
+  color: #1a1208;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-#btnLogin { margin-top: 18px; padding: 12px 18px; width: 100%; }
-#buyLivesBtn { font-size: 0.82rem; }
+#buyLivesBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+#btnLogin {
+  margin-top: 18px;
+  padding: 12px 18px;
+  width: 100%;
+}
+
+#buyLivesBtn {
+  font-size: 0.82rem;
+}
