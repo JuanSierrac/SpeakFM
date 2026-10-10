@@ -26,980 +26,364 @@ const LIFE_RESTORE_MS = 12 * 60 * 60 * 1000;
 const EPISODES = [
   {
     id: 1,
-    title: 'The signal',
+    title: 'The Startup Pitch',
+    titleC1: 'The Autonomous Fleet',
     story: `
-      <p>Maya Reyes arrives at the old radio station just as the last afternoon light falls on the metal antennas.
-      She carries her recorder on one shoulder and a notebook filled with questions that nobody wants to answer.</p>
-      <p>Inside, the console still glows. Someone was here recently. She notices a
-      <span class="word-highlight" data-word="frequency" data-def="A radio frequency is the number of oscillations per second of an electromagnetic wave.">frequency</span>
-      tuned to an
-      <span class="word-highlight" data-word="abandoned" data-def="Abandoned: left behind, no longer used or occupied.">abandoned</span>
-      band — static, but with a pattern underneath.</p>
-      <p>"Who would broadcast here?" she
-      <span class="word-highlight" data-word="mutters" data-def="To mutter: to speak quietly and indistinctly, often to oneself.">mutters</span>.
-      She hits record. The pattern repeats: three short pulses, one long, three short. She
-      <span class="word-highlight" data-word="recognizes" data-def="To recognize: to identify something from previous knowledge.">recognizes</span>
-      it. Morse code. The letter S-O-S.</p>
-      <p>Someone is calling for help on a frequency the world
-      <span class="word-highlight" data-word="abandoned" data-def="Abandoned: left behind, no longer used or occupied.">abandoned</span>
-      decades ago. Maya checks the signal's
-      <span class="word-highlight" data-word="origin" data-def="Origin: the point where something begins, the source.">origin</span>.
-      The coordinates point to the old
-      <span class="word-highlight" data-word="archive" data-def="Archive: a collection of historical records or documents.">archive</span>
-      downtown. She closes her notebook. Tomorrow, she goes there.</p>
+      <p>Elena adjusted her blazer and looked around the crowded boardroom. For months, she and her small tech team had poured countless hours into developing an
+      <span class="word-highlight" data-word="application" data-def="Application: a computer program designed for a particular purpose.">application</span>
+      that streamlined local supply chains.</p>
+      <p>Now, the moment of truth had arrived: pitching to a panel of skeptical
+      <span class="word-highlight" data-word="venture capitalists" data-def="Venture capitalists: investors who provide capital to startup companies.">venture capitalists</span>.</p>
+      <p>As she began speaking, her initial nerves dissipated, replaced by a steady confidence in her product's
+      <span class="word-highlight" data-word="viability" data-def="Viability: ability to work successfully or survive.">viability</span>
+      and market potential.</p>
+      <p>By the time she concluded with a compelling call to action, the room erupted into thoughtful nods.</p>
+      <p>She knew the journey was only beginning, but this milestone proved that
+      <span class="word-highlight" data-word="perseverance" data-def="Perseverance: persistence in doing something despite difficulty.">perseverance</span>
+      truly pays off.</p>
     `,
-    char: { name: 'Maya Reyes', role: 'Periodista investigadora', emoji: '🎙️' },
-    charGreeting: "Hi. I wasn't expecting anyone here. You read my story? What did you think about the signal I found?",
+    char: { name: 'Elena', role: 'Fundadora de Startup', emoji: '💻' },
+    charGreeting: "Hi there! I just finished pitching my application to investors. Have you ever had to present an important idea in front of a tough audience?",
     quiz: [
-      {
-        q: 'Where does Maya arrive at the beginning of the story?',
-        options: ['The city harbour', 'An old radio station', 'A hotel lobby'],
-        answer: 1,
-      },
-      {
-        q: 'What message does Maya recognize in Morse code?',
-        options: ['S-O-S', 'C-I-A', 'E-N-D'],
-        answer: 0,
-      },
-      {
-        q: 'Where do the signal coordinates point?',
-        options: ['A shopping centre', 'The old archive downtown', 'A warehouse across the border'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya carry when she enters the radio station?',
-        options: ['A camera and a flashlight', 'A recorder and a notebook', 'A laptop and a map'],
-        answer: 1,
-      },
-      {
-        q: 'What is unusual about the radio frequency Maya finds?',
-        options: ['It broadcasts music', 'It is tuned to an abandoned band', 'It comes from another city'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya decide to do after finding the signal?',
-        options: ['Call the police immediately', 'Go to the old archive the next day', 'Leave the station and forget it'],
-        answer: 1,
-      },
+      { q: 'What was the main purpose of Elena\'s presentation?', options: ['To recruit new software developers', 'To pitch to venture capitalists for funding', 'To demonstrate a new video game'], answer: 1 },
+      { q: 'How did Elena feel at the very beginning of her pitch?', options: ['Completely overconfident and arrogant', 'Nervous, though it quickly turned into steady confidence', 'Indifferent and bored'], answer: 1 },
+      { q: 'What does the application focus on streamlining?', options: ['Local supply chains', 'International air travel', 'Public transportation schedules'], answer: 0 },
+      { q: 'How did the panel react when she finished?', options: ['They immediately walked out of the room', 'They laughed and dismissed her idea', 'They nodded thoughtfully in approval'], answer: 2 },
+      { q: 'What did this milestone validate for Elena?', options: ['That perseverance pays off', 'That she should change her career path', 'That pitching is unnecessary for startups'], answer: 0 },
+      { q: 'Who was present in the boardroom listening to her?', options: ['Her family members', 'A panel of skeptical venture capitalists', 'Local high school students'], answer: 1 },
     ],
-    charGreetingC1: "You made it through the first transmission, then. Most people hear static and walk away. What did the pattern tell you — and what would you have done with those coordinates?",
+    charGreetingC1: "The corridor ran on quiet algorithmic authority tonight. When freight trajectories are fully autonomous, where should human engineers still intervene?",
     storyC1: `
-      <p>Maya Reyes reaches the
-      <span class="word-highlight" data-word="dilapidated" data-def="Dilapidated: in a state of disrepair or ruin as a result of age or neglect.">dilapidated</span>
-      radio station as dusk drains the last colour from the antennas. The place has the air of a crime scene that nobody has bothered to tape off.</p>
-      <p>Inside, the console is still warm. Whoever operated it left in a hurry — or wanted her to believe they had. She isolates a
-      <span class="word-highlight" data-word="frequency" data-def="Frequency: here, a specific radio channel; the rate at which a wave oscillates.">frequency</span>
-      that official charts list as
-      <span class="word-highlight" data-word="decommissioned" data-def="Decommissioned: formally taken out of active service.">decommissioned</span>.
-      Beneath the static sits a pattern too regular to be
-      <span class="word-highlight" data-word="coincidental" data-def="Coincidental: happening by chance, without a causal connection.">coincidental</span>.</p>
-      <p>She records it, then
-      <span class="word-highlight" data-word="deciphers" data-def="To decipher: to succeed in interpreting something obscure or coded.">deciphers</span>
-      three short pulses, one long, three short: Morse for S-O-S. A distress call on a band the world
-      <span class="word-highlight" data-word="consigned" data-def="To consign: to send something away or relegate it, often permanently.">consigned</span>
-      to silence decades ago.</p>
-      <p>Triangulating the
-      <span class="word-highlight" data-word="origin" data-def="Origin: the source or starting point of something.">origin</span>
-      takes minutes. The coordinates fall on the municipal
-      <span class="word-highlight" data-word="archive" data-def="Archive: a repository of historical records and documents.">archive</span>
-      downtown — a building that, on paper, holds nothing but paper. Maya does not believe paper is all it holds.</p>
+      <p>As dusk settled over the logistics corridor, the central dispatch terminal hummed with quiet
+      <span class="word-highlight" data-word="algorithmic" data-def="Algorithmic: governed by a set of computational rules or procedures.">algorithmic</span>
+      authority. Autonomous freight vehicles synchronized their trajectories through dense vehicular traffic, anticipating urban bottlenecks via real-time
+      <span class="word-highlight" data-word="telemetry" data-def="Telemetry: the automatic transmission of measurements from remote sources.">telemetry</span>.</p>
+      <p>Engineers in the control room monitored the
+      <span class="word-highlight" data-word="decentralized" data-def="Decentralized: distributed across many nodes rather than controlled from one centre.">decentralized</span>
+      mesh network, ensuring zero
+      <span class="word-highlight" data-word="latency" data-def="Latency: delay between a signal being sent and received.">latency</span>
+      during high-speed handoffs.</p>
+      <p>The transition from human-piloted transport to fully autonomous fleets had fundamentally revolutionized regional commerce, converting unpredictable transit corridors into hyper-efficient digital
+      <span class="word-highlight" data-word="arteries" data-def="Arteries: here, major routes that carry traffic, like blood vessels in a body.">arteries</span>.</p>
     `,
     quizC1: [
-      {
-        q: 'What leads Maya to conclude that someone used the console recently?',
-        options: ['The antennas are still moving', 'The console is still warm', 'She finds a signed guestbook'],
-        answer: 1,
-      },
-      {
-        q: 'Why is the SOS on this particular band so unsettling?',
-        options: [
-          'The frequency was formally taken out of service decades ago',
-          'Morse code is illegal to broadcast',
-          'The station belongs to her newspaper',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What inference does Maya draw from the coordinates?',
-        options: [
-          'The signal is a prank from the harbour',
-          'The archive may conceal more than ordinary records',
-          'Harlan Voss is waiting for her there',
-        ],
-        answer: 1,
-      },
-      {
-        q: "What does Maya's notebook full of unanswered questions tell us about her investigation?",
-        options: [
-          'She has reached a dead end',
-          'She has been pursuing leads that nobody will confirm',
-          'She works for a foreign intelligence agency',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does the author describe the SOS pattern as "too regular to be coincidental"?',
-        options: [
-          'To suggest that natural interference could not produce it',
-          'To show that Maya has poor hearing',
-          'To indicate the frequency was always public',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does the phrase "consigned to silence" imply about the old band?',
-        options: [
-          'It was deliberately removed from active use',
-          'It was never used for broadcasting',
-          'The government still monitors it daily',
-        ],
-        answer: 0,
-      },
+      { q: 'What environment did the autonomous freight vehicles navigate?', options: ['Rural farmland paths', 'A dense logistics corridor with vehicular traffic', 'Mountainous off-road terrain'], answer: 1 },
+      { q: 'How did the vehicles anticipate urban bottlenecks?', options: ['Through real-time telemetry and algorithmic coordination', 'By calling human traffic controllers manually', 'By stopping every few miles to check maps'], answer: 0 },
+      { q: 'What was the primary duty of the engineers in the control room?', options: ['Driving the trucks remotely via joysticks', 'Monitoring the decentralized mesh network for zero latency', 'Repairing broken mechanical engines on-site'], answer: 1 },
+      { q: 'What did high-speed handoffs require from the network?', options: ['Zero latency to ensure seamless transitions', 'Frequent manual overrides by operators', 'Complete disconnection from the internet'], answer: 0 },
+      { q: 'How had the transition to autonomous fleets impacted regional commerce?', options: ['It caused massive shipping delays and financial losses', 'It fundamentally revolutionized commerce by converting corridors into digital arteries', 'It made transport completely dependent on weather conditions'], answer: 1 },
+      { q: "What term best describes the central dispatch terminal's authority?", options: ['Chaotic and unpredictable', 'Quiet algorithmic authority', 'Outdated and inefficient'], answer: 1 },
     ],
   },
   {
     id: 2,
-    title: 'The file',
+    title: 'Urban Gardening',
+    titleC1: 'Deep Ocean Acoustics',
     story: `
-      <p>The city archive smells of damp paper and old ink. Maya navigates through rows of metal shelves,
-      looking for the file referenced in the signal coordinates.</p>
-      <p>A clerk eyes her
-      <span class="word-highlight" data-word="suspiciously" data-def="Suspiciously: with distrust or doubt about someone's motives.">suspiciously</span>.
-      "Those files are
-      <span class="word-highlight" data-word="restricted" data-def="Restricted: limited to authorised people only.">restricted</span>,"
-      he says. Maya shows her press badge. He hesitates, then
-      <span class="word-highlight" data-word="reluctantly" data-def="Reluctantly: unwillingly; doing something you don't want to do.">reluctantly</span>
-      leads her to a back room.</p>
-      <p>Inside is a single manila folder, thick with documents. The top page bears a
-      <span class="word-highlight" data-word="classified" data-def="Classified: designated as secret or confidential by a government or authority.">classified</span>
-      stamp — but the stamp is from 1987. The statute of limitations has expired. She can read it legally.</p>
-      <p>What she finds changes everything she thought she knew about the old broadcast tower.</p>
+      <p>Living in a high-rise apartment in the bustling city center left Marcus craving a connection to nature.</p>
+      <p>To remedy this, he decided to transform his narrow balcony into a thriving urban garden.</p>
+      <p>He spent his weekends researching
+      <span class="word-highlight" data-word="drought-tolerant" data-def="Drought-tolerant: plants that can survive with very little water.">drought-tolerant</span>
+      plants, installing vertical wooden pallets, and setting up an automated drip-irrigation system.</p>
+      <p>Despite initial setbacks with pests and unpredictable weather, his herbs and cherry tomatoes eventually flourished.</p>
+      <p>Tending to the greenery became his daily ritual—a tranquil sanctuary amidst the chaotic rhythm of city life.</p>
     `,
-    char: { name: 'Archivo · Clerk', role: 'Empleado del archivo municipal', emoji: '📁' },
-    charGreeting: "You found the file, didn't you. Look, I already told the journalist — those documents were sealed for a reason. What exactly are you looking for?",
+    char: { name: 'Marcus', role: 'Jardinero Urbano', emoji: '🌱' },
+    charGreeting: "Hello! My balcony garden finally grew some cherry tomatoes. Do you enjoy growing plants or keeping a green space at home?",
     quiz: [
-      {
-        q: 'What does the city archive smell of?',
-        options: ['Fresh coffee and soap', 'Damp paper and old ink', 'Smoke and petrol'],
-        answer: 1,
-      },
-      {
-        q: 'Why does the clerk first refuse to help Maya?',
-        options: ['The files are restricted', 'The archive is closed', 'He does not speak English'],
-        answer: 0,
-      },
-      {
-        q: 'Why can Maya legally read the classified folder?',
-        options: ['The clerk gives her a special key', 'The stamp is from 1987 and the time limit has expired', 'The documents were never secret'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya show the clerk to get access to the files?',
-        options: ['Her passport', 'Her press badge', 'A court order'],
-        answer: 1,
-      },
-      {
-        q: 'How does the clerk react before letting Maya into the back room?',
-        options: ['He smiles and invites her in', 'He calls his supervisor', 'He hesitates and then leads her reluctantly'],
-        answer: 2,
-      },
-      {
-        q: 'What is inside the classified manila folder?',
-        options: ['A single blank page', 'A thick collection of documents', 'A list of radio frequencies'],
-        answer: 1,
-      },
+      { q: 'What inspired Marcus to start his urban garden?', options: ['A desire to sell vegetables for profit', 'A craving for a connection to nature while living in a high-rise', 'An assignment for a biology class'], answer: 1 },
+      { q: 'What feature did he install to manage watering efficiently?', options: ['An automated drip-irrigation system', 'A manual sprinkler hose', 'Rainwater collection barrels'], answer: 0 },
+      { q: 'What initial challenges did Marcus face?', options: ['Financial bankruptcy and eviction', 'Pests and unpredictable weather', 'Lack of sunlight entirely'], answer: 1 },
+      { q: 'What plants successfully flourished on his balcony?', options: ['Giant oak trees and ferns', 'Herbs and cherry tomatoes', 'Cacti and tropical orchids'], answer: 1 },
+      { q: 'What did the balcony garden ultimately become for him?', options: ['A noisy workshop for carpentry', 'A tranquil sanctuary to unwind and clear his mind', 'A storage space for old furniture'], answer: 1 },
+      { q: 'When did he spend time researching and setting up the garden?', options: ['During his weekday lunch breaks', 'Late at night after work', 'Over the weekends'], answer: 2 },
     ],
-    charGreetingC1: "You saw the folder. Don't pretend you didn't. Sealed files have a way of staying sealed for reasons that outlive the stamp. What do you think they were trying to bury?",
+    charGreetingC1: "Four thousand metres down, the bathyscaphe was mapping trenches we have barely named. What would you listen for first in that acoustic dark?",
     storyC1: `
-      <p>The municipal archive smells of damp paper and the faintly sweet
-      <span class="word-highlight" data-word="decay" data-def="Decay: the process of rotting or declining over time.">decay</span>
-      of ink. Maya moves along the aisles with the coordinates memorised, aware that asking the wrong question here is itself a kind of confession.</p>
-      <p>A clerk watches her with
-      <span class="word-highlight" data-word="undisguised" data-def="Undisguised: not hidden; open and obvious.">undisguised</span>
-      suspicion. "Those files are
-      <span class="word-highlight" data-word="restricted" data-def="Restricted: limited to people with official permission.">restricted</span>,"
-      he says, as if the word were a lock. Maya produces her press credentials. He
-      <span class="word-highlight" data-word="capitulates" data-def="To capitulate: to give in after resistance; to yield.">capitulates</span>
-      only after a long, unhappy silence, and escorts her to a windowless room.</p>
-      <p>The manila folder is thicker than it has any right to be. A
-      <span class="word-highlight" data-word="classified" data-def="Classified: officially designated as secret.">classified</span>
-      stamp from 1987 still
-      <span class="word-highlight" data-word="asserts" data-def="To assert: to state or insist on something firmly.">asserts</span>
-      authority — but the statute of limitations has lapsed. The secrecy is theatre now. The contents are not.</p>
-      <p>What she reads
-      <span class="word-highlight" data-word="implicates" data-def="To implicate: to show that someone is involved in a crime or wrongdoing.">implicates</span>
-      the old broadcast tower in something that was never meant to air.</p>
+      <p>Submerged beneath four thousand meters of crushing
+      <span class="word-highlight" data-word="hydrostatic" data-def="Hydrostatic: relating to the pressure exerted by a fluid at rest.">hydrostatic</span>
+      pressure, the autonomous
+      <span class="word-highlight" data-word="bathyscaphe" data-def="Bathyscaphe: a deep-diving submersible used for ocean exploration.">bathyscaphe</span>
+      mapped uncharted abyssal trenches.</p>
+      <p>Acoustic sensors captured the ethereal, low-frequency vocalizations of
+      <span class="word-highlight" data-word="cetaceans" data-def="Cetaceans: the order of marine mammals that includes whales, dolphins and porpoises.">cetaceans</span>
+      echoing across oceanic basins. Marine biologists back on the surface analyzed the
+      <span class="word-highlight" data-word="spectrograms" data-def="Spectrograms: visual graphs of how a sound's frequencies change over time.">spectrograms</span>,
+      deciphering migratory patterns that had remained elusive for decades.</p>
+      <p>This acoustic monitoring infrastructure proved indispensable for understanding how
+      <span class="word-highlight" data-word="anthropogenic" data-def="Anthropogenic: caused or produced by human activity.">anthropogenic</span>
+      noise pollution disrupts deep-sea ecosystems.</p>
     `,
     quizC1: [
-      {
-        q: 'How does the clerk initially treat Maya’s request?',
-        options: [
-          'He is eager to help a journalist',
-          'He treats “restricted” as a reason to refuse her',
-          'He claims the archive burned down',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does the 1987 stamp no longer function as a legal barrier?',
-        options: [
-          'Maya has a court order',
-          'The time limit on secrecy has expired',
-          'The clerk destroys the stamp',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What is the essential revelation of the folder?',
-        options: [
-          'The tower was involved in activity that was never meant to be broadcast',
-          'The archive is moving to a new building',
-          'Maya’s press badge is fake',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does “capitulates” reveal about the clerk’s character?',
-        options: [
-          'He is genuinely eager to help journalists',
-          'He gives in reluctantly after initial resistance',
-          'He has legal authority to deny access permanently',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does the narrator describe the stamp’s authority as “theatre”?',
-        options: [
-          'The folder was used in a stage production',
-          'The secrecy is now performative since the legal basis for it has expired',
-          'The clerk is acting on behalf of Voss',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What risk does Maya take by asking the wrong question in the archive?',
-        options: [
-          'She could be arrested on the spot',
-          'It would signal to observers that she knows more than she should',
-          'The documents would automatically be re-sealed',
-        ],
-        answer: 1,
-      },
+      { q: 'At what depth was the autonomous bathyscaphe operating?', options: ['Four hundred meters below sea level', 'Four thousand meters beneath hydrostatic pressure', 'Ten thousand meters in a shallow bay'], answer: 1 },
+      { q: 'What did the acoustic sensors capture during the descent?', options: ['The low-frequency vocalizations of cetaceans', 'Seismic tremors from underwater volcanoes', 'Commercial shipping propeller sounds exclusively'], answer: 0 },
+      { q: 'Who analyzed the spectrograms back on the surface?', options: ['Aerospace engineers', 'Marine biologists', 'Meteorological forecasters'], answer: 1 },
+      { q: 'What long-standing mystery did the spectrograms help decipher?', options: ['Ancient shipwreck locations', 'Elusive marine migratory patterns', 'Deep-sea thermal vent temperatures'], answer: 1 },
+      { q: 'Why was the acoustic monitoring infrastructure deemed indispensable?', options: ['For tracking illegal fishing boats visually', 'For understanding how anthropogenic noise disrupts deep-sea ecosystems', 'For finding sunken treasure fleets'], answer: 1 },
+      { q: 'What kind of pressure characterized the abyssal environment?', options: ['Crushing hydrostatic pressure', 'Negligible atmospheric pressure', 'Fluctuating tidal pressure'], answer: 0 },
     ],
   },
   {
     id: 3,
-    title: 'The Informant',
+    title: 'The Midnight Shift',
+    titleC1: 'The Restoration Atelier',
     story: `
-      <p>A voicemail arrives at 3 a.m. on Maya's burner phone: "You found the folder. Don't trust the tower's
-      owner. Meet me at the harbor at noon. Come alone."</p>
-      <p>The voice is
-      <span class="word-highlight" data-word="distorted" data-def="Distorted: altered or twisted out of its original shape; here, electronically changed to hide identity.">distorted</span>,
-      but the urgency is clear. Maya records the message, then
-      <span class="word-highlight" data-word="deciphers" data-def="To decipher: to succeed in understanding something difficult or hard to read.">deciphers</span>
-      a subtle background sound — seagulls and a foghorn. The harbor it is.</p>
-      <p>At noon, a figure in a grey coat sits on a bench facing the water. He doesn't turn around when she
-      approaches. "I was an
-      <span class="word-highlight" data-word="engineer" data-def="Engineer: a person who designs, builds, or maintains engines, machines, or structures.">engineer</span>
-      at the tower," he says. "I know what they were really
-      <span class="word-highlight" data-word="broadcasting" data-def="To broadcast: to transmit a programme or information by radio or television.">broadcasting</span>."</p>
+      <p>As the city plunged into deep slumber, Julian sat quietly at his mahogany desk inside the municipal archive.</p>
+      <p>Surrounded by towering stacks of yellowed documents dating back to the early twentieth century, he meticulously digitized historical architectural blueprints.</p>
+      <p>The work required immense concentration, as a single keystroke error could miscategorize decades of urban development records.</p>
+      <p>Although the solitary hours were exhausting, Julian found a profound sense of purpose in preserving the fragile legacy of his hometown.</p>
     `,
-    char: { name: 'El Informante', role: 'Exingeniero (identidad desconocida)', emoji: '🕵️' },
-    charGreeting: "You came alone. Good. I don't have much time. Ask me one thing — make it count.",
+    char: { name: 'Julian', role: 'Archivero Nocturno', emoji: '📜' },
+    charGreeting: "Working the night shift in the archive gives you a totally different perspective on history. Have you ever explored old historical records?",
     quiz: [
-      {
-        q: 'When does the voicemail arrive?',
-        options: ['At 3 a.m.', 'At noon', 'On Sunday morning'],
-        answer: 0,
-      },
-      {
-        q: 'Where must Maya meet the caller?',
-        options: ['At the radio station', 'At the harbour at noon', 'In a hotel lobby'],
-        answer: 1,
-      },
-      {
-        q: 'Who does the man in the grey coat say he was?',
-        options: ['The owner of the tower', 'A journalist', 'An engineer at the tower'],
-        answer: 2,
-      },
-      {
-        q: 'What sound does Maya notice in the background of the voicemail?',
-        options: ['Traffic and car horns', 'Seagulls and a foghorn', 'Music and voices'],
-        answer: 1,
-      },
-      {
-        q: 'How is the caller’s voice described?',
-        options: ['Clear and confident', 'Distorted', 'Whispering quietly'],
-        answer: 1,
-      },
-      {
-        q: 'What does the informant warn Maya about?',
-        options: ['The archive clerk', 'Not trusting the tower’s owner', 'The police'],
-        answer: 1,
-      },
+      { q: 'What was Julian\'s primary task during his shift?', options: ['Restoring old oil paintings', 'Digitizing historical architectural blueprints', 'Patrolling city streets as a security guard'], answer: 1 },
+      { q: 'What time of day did Julian work?', options: ['During the busy afternoon rush', 'Early morning before sunrise', 'Late at night while the city slept'], answer: 2 },
+      { q: 'Why did the job require immense concentration?', options: ['Because errors could miscategorize urban records', 'Because the computer systems were ancient and slow', 'Because his supervisor was constantly watching him'], answer: 0 },
+      { q: 'How did Julian view the solitary and exhausting hours?', options: ['As a meaningless waste of time', 'As a chance to sleep on the job', 'As a profound purpose in preserving his town\'s legacy'], answer: 2 },
+      { q: 'What era did the documents originate from?', options: ['The early twentieth century', 'The twenty-first century', 'The Renaissance period'], answer: 0 },
+      { q: 'Where was Julian\'s desk located?', options: ['Inside a municipal archive', 'At a downtown public library', 'In a university computer lab'], answer: 0 },
     ],
-    charGreetingC1: "You came alone. If you hadn't, I'd already be gone. You get one question that matters. Don't waste it on small talk.",
+    charGreetingC1: "The craquelure was extensive, and one careless solvent pass would have ruined the imprimatura. Where do you draw the line between restoration and overpainting?",
     storyC1: `
-      <p>The voicemail lands at 3 a.m. on a
-      <span class="word-highlight" data-word="disposable" data-def="Disposable: intended to be used once and then thrown away; here, a cheap untraceable phone.">disposable</span>
-      phone Maya keeps for sources who refuse to be named: "You found the folder. Do not trust the tower's owner. Harbour. Noon. Alone."</p>
-      <p>The voice is electronically
-      <span class="word-highlight" data-word="distorted" data-def="Distorted: altered so that the original form is hard to recognise.">distorted</span>,
-      but the
-      <span class="word-highlight" data-word="subtext" data-def="Subtext: an underlying meaning that is not stated directly.">subtext</span>
-      is unmistakable. She replays the recording until a background layer
-      <span class="word-highlight" data-word="resolves" data-def="To resolve: to become clear or distinguishable; to find a solution.">resolves</span>
-      into seagulls and a foghorn. The meeting place is not a suggestion.</p>
-      <p>At noon a figure in a grey coat sits with his back to the approach. He does not turn. "I was an
-      <span class="word-highlight" data-word="engineer" data-def="Engineer: someone who designs or maintains technical systems.">engineer</span>
-      at the tower," he says. "I know what they were actually
-      <span class="word-highlight" data-word="transmitting" data-def="To transmit: to send out signals, messages, or broadcasts.">transmitting</span>
-      — and it was never weather reports."</p>
+      <p>Inside the softly illuminated atelier, conservator Julian inspected a sixteenth-century oil painting suffering from extensive
+      <span class="word-highlight" data-word="craquelure" data-def="Craquelure: a network of fine cracks in the paint or varnish of an old painting.">craquelure</span>
+      and varnish
+      <span class="word-highlight" data-word="oxidation" data-def="Oxidation: chemical reaction with oxygen that degrades a material over time.">oxidation</span>.</p>
+      <p>Using a binocular microscope and surgical micro-solvents, he meticulously removed centuries of grime without compromising the delicate
+      <span class="word-highlight" data-word="imprimatura" data-def="Imprimatura: a thin, tinted ground layer applied to a canvas before painting.">imprimatura</span>
+      beneath. Every micro-restoration decision demanded rigorous historical alignment and ethical
+      <span class="word-highlight" data-word="restraint" data-def="Restraint: self-control; refusing to do more than is strictly necessary.">restraint</span>.</p>
+      <p>When the restoration was finally unveiled, the painting's
+      <span class="word-highlight" data-word="chromatic" data-def="Chromatic: relating to colour or a range of colours.">chromatic</span>
+      brilliance re-emerged, honoring the original master's vision across half a millennium.</p>
     `,
     quizC1: [
-      {
-        q: 'Why does Maya use a disposable phone for this contact?',
-        options: [
-          'Her newspaper requires it for all calls',
-          'It is for sources who refuse to be identified',
-          'The harbour has no signal otherwise',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'How does she confirm the meeting place independently of the spoken words?',
-        options: [
-          'She traces the caller’s number',
-          'She isolates seagulls and a foghorn in the recording',
-          'The clerk tells her where to go',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does the engineer imply about the tower’s output?',
-        options: [
-          'It was used for something other than its public purpose',
-          'It never broadcast anything at all',
-          'It only transmitted Morse code legally',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'Why does Maya use a disposable phone for certain contacts?',
-        options: [
-          'It has better audio quality',
-          'It protects sources who need to remain anonymous',
-          'Her regular phone is broken',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does the informant’s refusal to turn around suggest?',
-        options: [
-          'He is rude and dismissive',
-          'He is protecting his identity even during the meeting',
-          'He is waiting for someone else',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'How does the subtext of the voicemail differ from its literal words?',
-        options: [
-          'The words are friendly but the urgency signals real danger',
-          'There is no difference; the message is straightforward',
-          'The caller claims to be from the police',
-        ],
-        answer: 0,
-      },
+      { q: 'What specific damage was affecting the sixteenth-century oil painting?', options: ['Water saturation and torn canvas edges', 'Extensive craquelure and varnish oxidation', 'Complete paint flaking due to fire damage'], answer: 1 },
+      { q: 'What tools did Julian use to examine and treat the artwork?', options: ['Digital rendering tablets and laser scanners', 'Binocular microscope and surgical micro-solvents', 'Heavy chemical strippers and coarse brushes'], answer: 1 },
+      { q: 'What layer beneath the grime did he take care not to compromise?', options: ['The delicate imprimatura', 'The modern wooden frame', 'The certificate of authenticity'], answer: 0 },
+      { q: 'What did every micro-restoration decision demand from the conservator?', options: ['Speed and commercial efficiency', 'Rigorous historical alignment and ethical restraint', 'Bold artistic interpretation and repainting'], answer: 1 },
+      { q: 'What happened when the restoration was officially unveiled?', options: ["The painting's chromatic brilliance re-emerged", 'The colors faded into total obscurity', 'Critics claimed it was an obvious forgery'], answer: 0 },
+      { q: "Across how many years did the restored work honor the master's vision?", options: ['A single decade', 'One hundred years', 'Half a millennium'], answer: 2 },
     ],
   },
   {
     id: 4,
-    title: 'Borders',
+    title: 'Culinary Heritage',
+    titleC1: 'Quantum Cryptography',
     story: `
-      <p>The investigation leads Maya across the border. The signal's origin has a second address —
-      a warehouse in a quiet industrial town. She rents a car and drives.</p>
-      <p>The warehouse looks
-      <span class="word-highlight" data-word="derelict" data-def="Derelict: in a very poor condition as a result of disuse and neglect.">derelict</span>,
-      but inside she finds
-      <span class="word-highlight" data-word="evidence" data-def="Evidence: the available body of facts or information indicating whether a belief or proposition is true.">evidence</span>
-      of recent activity: fresh tyre tracks, a half-eaten sandwich, warm coffee in a thermos.</p>
-      <p>Someone was here an hour ago. Someone who didn't want to be found.</p>
+      <p>Every Sunday afternoon, Sofia's kitchen filled with the rich, aromatic scents of slow-simmering sofrito and tender plantains.</p>
+      <p>Standing side-by-side with her grandmother, she learned the intricate techniques behind traditional Caribbean coastal dishes.</p>
+      <p>While contemporary dining trends favored fast-paced fusion concepts, Sofia believed that preserving authentic culinary heritage was a vital form of storytelling.</p>
+      <p>As she deftly folded dough for empanadas, she realized that food was a living bridge connecting her present identity to ancestral roots.</p>
     `,
-    char: { name: 'Maya Reyes', role: 'Periodista investigadora', emoji: '🎙️' },
-    charGreeting: "I'm across the border now. This warehouse... someone left in a hurry. What would you do in my situation?",
+    char: { name: 'Sofia', role: 'Chef Tradicional', emoji: '🍳' },
+    charGreeting: "Hello! Cooking family recipes always reminds me of where I come from. Do you have a favorite traditional dish from your culture?",
     quiz: [
-      {
-        q: 'Where does the investigation take Maya?',
-        options: ['Back to the archive', 'Across the border, to a warehouse', 'To a shopping centre'],
-        answer: 1,
-      },
-      {
-        q: 'How does the warehouse look from the outside?',
-        options: ['New and busy', 'Derelict', 'Like a radio studio'],
-        answer: 1,
-      },
-      {
-        q: 'What shows that someone was there recently?',
-        options: ['A locked door and dust', 'Fresh tyre tracks, a sandwich and warm coffee', 'A Morse code message on the wall'],
-        answer: 1,
-      },
+      { q: 'What dishes and aromas characterized Sunday afternoons in Sofia\'s kitchen?', options: ['Italian pasta and baked lasagna', 'Slow-simmering sofrito and tender plantains', 'French pastries and creamy soups'], answer: 1 },
+      { q: 'How were these traditional recipes originally passed down?', options: ['Through printed cookbooks and magazines', 'Via online cooking blogs and videos', 'Orally through generations'], answer: 2 },
+      { q: 'What contrast does Sofia note regarding modern dining trends?', options: ['They favor fast-paced fusion concepts', 'They are too expensive for most people', 'They completely ignore the use of spices'], answer: 0 },
+      { q: 'Why does Sofia consider preserving heritage cooking important?', options: ['As a way to open a restaurant chain', 'As a vital form of storytelling', 'To win international culinary awards'], answer: 1 },
+      { q: 'What deeper meaning did Sofia attach to food while cooking?', options: ['It is a living bridge to her ancestral roots', 'It is solely a biological necessity for survival', 'It is a competitive sport'], answer: 0 },
+      { q: 'Who was teaching Sofia these intricate culinary techniques?', options: ['Her professional chef instructor', 'Her grandmother', 'Her older brother'], answer: 1 },
     ],
-    charGreetingC1: "I'm on the other side of the border with a warehouse that was emptied an hour ago. If you were in my position — with evidence still warm — what would you risk next?",
+    charGreetingC1: "Any interception collapses the quantum state. If confidentiality rests on physics rather than passwords, what still keeps you awake at night?",
     storyC1: `
-      <p>The trail
-      <span class="word-highlight" data-word="compels" data-def="To compel: to force or strongly oblige someone to do something.">compels</span>
-      Maya across the border. A second address
-      <span class="word-highlight" data-word="appended" data-def="Appended: added at the end of a document or list.">appended</span>
-      to the signal's origin names a warehouse in a quiet industrial town. She hires a car and drives without telling her editor the details — a
-      <span class="word-highlight" data-word="deliberate" data-def="Deliberate: done consciously and intentionally.">deliberate</span>
-      omission.</p>
-      <p>From the outside the building looks
-      <span class="word-highlight" data-word="derelict" data-def="Derelict: abandoned and in very poor condition.">derelict</span>.
-      Inside, the
-      <span class="word-highlight" data-word="façade" data-def="Façade: a deceptive outward appearance that hides the truth.">façade</span>
-      collapses: fresh tyre tracks, a sandwich abandoned mid-bite, coffee still warm in a thermos.</p>
-      <p>Someone was here within the hour. Someone who knew they were being
-      <span class="word-highlight" data-word="pursued" data-def="Pursued: followed in order to catch or find.">pursued</span>
-      and chose speed over
-      <span class="word-highlight" data-word="erasure" data-def="Erasure: the act of removing all traces of something.">erasure</span>.</p>
+      <p>Within the subterranean physics laboratory, Dr. Vance oversaw the calibration of a quantum key distribution rig. Photons polarized in
+      <span class="word-highlight" data-word="superposition" data-def="Superposition: a quantum state in which a particle exists in multiple states at once until measured.">superposition</span>
+      states were transmitted across optical fibers to secure institutional data channels against quantum decryption threats.</p>
+      <p>Any malicious
+      <span class="word-highlight" data-word="interception" data-def="Interception: the act of catching or diverting something while it is in transit.">interception</span>
+      inevitably collapsed the quantum state, leaving an unmistakable
+      <span class="word-highlight" data-word="cryptographic" data-def="Cryptographic: relating to coded communication designed to keep information secret.">cryptographic</span>
+      footprint.</p>
+      <p>This paradigm shift in cybersecurity replaced mathematical complexity with
+      <span class="word-highlight" data-word="immutable" data-def="Immutable: unable to be changed; permanent.">immutable</span>
+      laws of quantum mechanics, promising absolute
+      <span class="word-highlight" data-word="confidentiality" data-def="Confidentiality: the state of keeping information private and restricted.">confidentiality</span>
+      for future global communications.</p>
     `,
     quizC1: [
-      {
-        q: 'Why does Maya withhold details from her editor?',
-        options: [
-          'She forgets to call',
-          'She omits them on purpose',
-          'The editor has already fired her',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does “the façade collapses” mean in this context?',
-        options: [
-          'The warehouse wall physically falls down',
-          'The appearance of abandonment is contradicted by recent activity',
-          'Maya realises she is in the wrong country',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does the warm coffee suggest about the person who left?',
-        options: [
-          'They prioritised escaping quickly over covering their tracks',
-          'They wanted Maya to find them easily',
-          'They work night shifts at the archive',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'Why does Maya withhold details from her editor before crossing the border?',
-        options: [
-          'She wants sole credit for the story',
-          'It is a deliberate omission to maintain control of the investigation',
-          'Her editor is on holiday',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does the contrast between the exterior and interior of the warehouse reveal?',
-        options: [
-          'The building was recently renovated inside',
-          'Its derelict appearance is a deliberate disguise for ongoing activity',
-          'Maya entered the wrong building',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does choosing speed over erasure say about the person who fled?',
-        options: [
-          'They were careless and disorganised',
-          'They knew they were being followed and prioritised escape over hiding evidence',
-          'They planned to return and clean up later',
-        ],
-        answer: 1,
-      },
+      { q: 'What equipment was Dr. Vance calibrating in the subterranean lab?', options: ['A particle accelerator ring', 'A quantum key distribution rig', 'A nuclear fusion containment vessel'], answer: 1 },
+      { q: 'In what states were the transmitted photons polarized?', options: ['Superposition states', 'Binary linear states', 'Thermal plasma states'], answer: 0 },
+      { q: 'What was the primary purpose of transmitting these photons across optical fibers?', options: ['To increase internet bandwidth speeds for public users', 'To secure institutional data channels against quantum threats', 'To test fiber optic cable tensile strength'], answer: 1 },
+      { q: 'What happens during any malicious interception of the quantum channel?', options: ['The data downloads twice as fast', 'The quantum state collapses, leaving a cryptographic footprint', 'The optical fibers melt from thermal overload'], answer: 1 },
+      { q: 'What did this cybersecurity paradigm shift replace mathematical complexity with?', options: ['Immutable laws of quantum mechanics', 'Stronger password encryption algorithms', 'Biometric facial recognition barriers'], answer: 0 },
+      { q: 'What ultimate promise does this technology hold for global communications?', options: ['Absolute confidentiality', 'Instantaneous global broadcasting', 'Zero maintenance overhead'], answer: 0 },
     ],
   },
   {
     id: 5,
-    title: 'The engineer',
+    title: 'The Remote Collaboration',
+    titleC1: 'The Architectural Biome',
     story: `
-      <p>Her name is Sofía Chen. She's the one who
-      <span class="word-highlight" data-word="encrypted" data-def="Encrypted: converted into a coded form to prevent unauthorised access.">encrypted</span>
-      the SOS inside the frequency. She built the whole system — and then
-      <span class="word-highlight" data-word="dismantled" data-def="Dismantled: taken apart; disassembled into pieces.">dismantled</span>
-      it when she realised what it was being used for.</p>
-      <p>"I needed someone to find the signal," Sofía explains. "Someone outside the company.
-      Someone who wouldn't bury it."</p>
-      <p>She hands Maya a hard drive. On it: two years of
-      <span class="word-highlight" data-word="intercepted" data-def="Intercepted: stopped and redirected something in the middle of its course.">intercepted</span>
-      transmissions, with timestamps and coordinates.</p>
+      <p>Working across three different time zones, Liam’s multinational development squad faced constant logistical hurdles.</p>
+      <p>Team members in Tokyo, Berlin, and Vancouver had to synchronize schedules meticulously to ensure seamless code deployment.</p>
+      <p>Instead of letting communication barriers hinder progress, Liam implemented asynchronous workflows and transparent documentation standards.</p>
+      <p>Ultimately, the distributed team discovered that distance could foster stronger global synergy than a traditional office.</p>
     `,
-    char: { name: 'Sofía Chen', role: 'Ingeniera de sistemas', emoji: '👩‍💻' },
-    charGreeting: "You found me. That took longer than I hoped. Did you listen to the full frequency recording? Tell me what you heard.",
+    char: { name: 'Liam', role: 'Lider de Desarrollo Remoto', emoji: '🌐' },
+    charGreeting: "Managing a team across Tokyo, Berlin, and Vancouver is quite a puzzle! Have you ever worked on a project with people from around the world?",
     quiz: [
-      {
-        q: 'Who encrypted the SOS inside the frequency?',
-        options: ['Harlan Voss', 'Sofía Chen', 'The archive clerk'],
-        answer: 1,
-      },
-      {
-        q: 'Why did Sofía dismantle the system?',
-        options: ['She needed more money', 'She realised what it was being used for', 'The tower was too old'],
-        answer: 1,
-      },
-      {
-        q: 'What does Sofía give Maya?',
-        options: ['A press badge', 'A hard drive with intercepted transmissions', 'A map of the harbour'],
-        answer: 1,
-      },
-      {
-        q: 'What did Sofía want Maya to do with the signal?',
-        options: ['Ignore it and stay safe', 'Find it and investigate without burying it', 'Send it to the police'],
-        answer: 1,
-      },
-      {
-        q: 'Why did Sofía need someone outside the company?',
-        options: ['Insiders were too busy', 'An outsider could not be pressured to suppress the story', 'She had no colleagues left'],
-        answer: 1,
-      },
-      {
-        q: 'What kind of data is on the hard drive?',
-        options: ['Weather reports and maps', 'Two years of intercepted transmissions with timestamps and coordinates', 'A list of employees'],
-        answer: 1,
-      },
+      { q: 'What major challenge did Liam\'s development squad face?', options: ['Frequent hardware failures across devices', 'Logistical hurdles across three different time zones', 'Language barriers between local clients'], answer: 1 },
+      { q: 'How did Liam overcome communication barriers?', options: ['By forcing everyone to work nocturnal hours', 'By implementing asynchronous workflows and documentation', 'By canceling all team meetings permanently'], answer: 1 },
+      { q: 'What was one direct benefit of this cultural shift?', options: ['Reduction of redundant meetings', 'Increased office rental budgets', 'Faster coffee breaks'], answer: 0 },
+      { q: 'What did the new approach empower developers to do?', options: ['Take autonomous ownership of their modules', 'Work completely isolated without sharing code', 'Ignore project deadlines entirely'], answer: 0 },
+      { q: 'What conclusion did the distributed team reach about distance?', options: ['It makes software development impossible', 'It fosters stronger global synergy with intentional frameworks', 'It requires everyone to relocate to the same city'], answer: 1 },
+      { q: 'Which cities were home to the team members?', options: ['London, Paris, and Rome', 'New York, Sydney, and Madrid', 'Tokyo, Berlin, and Vancouver'], answer: 2 },
     ],
-    charGreetingC1: "You found me later than I'd hoped, which means they nearly found me first. You listened to the frequency. Don't summarise it — tell me what you actually heard.",
+    charGreetingC1: "The eco-dome is a closed-loop metabolic system now. If a building can sequester carbon and purify its own greywater, what should cities still demand of architects?",
     storyC1: `
-      <p>Her name is Sofía Chen. She is the architect of the
-      <span class="word-highlight" data-word="encrypted" data-def="Encrypted: converted into code so that only authorised people can read it.">encrypted</span>
-      SOS nested inside the abandoned band — and the person who later
-      <span class="word-highlight" data-word="dismantled" data-def="Dismantled: taken apart so it can no longer function.">dismantled</span>
-      the apparatus once she grasped its true
-      <span class="word-highlight" data-word="mandate" data-def="Mandate: an official instruction or intended purpose.">mandate</span>.</p>
-      <p>"I needed an outsider," she says, without apology. "Someone the company could not
-      <span class="word-highlight" data-word="coerce" data-def="To coerce: to force someone to do something by threats or pressure.">coerce</span>
-      into burying the story. You were, frankly, a
-      <span class="word-highlight" data-word="contingency" data-def="Contingency: a plan for a possible future event; something that may happen.">contingency</span>."</p>
-      <p>She slides Maya a hard drive: two years of
-      <span class="word-highlight" data-word="intercepted" data-def="Intercepted: caught and taken while in transit.">intercepted</span>
-      transmissions, timestamped, geolocated, and — if the metadata holds —
-      <span class="word-highlight" data-word="incontrovertible" data-def="Incontrovertible: impossible to deny or disprove.">incontrovertible</span>.</p>
+      <p>Designed to mimic natural forest canopies, the experimental eco-dome integrated living
+      <span class="word-highlight" data-word="mycelium" data-def="Mycelium: the root-like fungal network used here as a living building composite.">mycelium</span>
+      composite panels with
+      <span class="word-highlight" data-word="photovoltaic" data-def="Photovoltaic: converting sunlight directly into electrical energy.">photovoltaic</span>
+      skin membranes.</p>
+      <p>Indoor microclimates were dynamically regulated by intelligent HVAC algorithms that reacted to sunlight intensity and human occupancy metrics. The structure operated as a closed-loop metabolic system, purifying its own greywater and
+      <span class="word-highlight" data-word="sequestering" data-def="To sequester: to capture and store something, especially carbon dioxide.">sequestering</span>
+      carbon dioxide directly from the ambient air.</p>
+      <p>It stood as a monumental testament to
+      <span class="word-highlight" data-word="regenerative" data-def="Regenerative: designed to restore or renew rather than merely reduce harm.">regenerative</span>
+      architecture, proving that human habitations could actively heal degraded urban
+      <span class="word-highlight" data-word="ecosystems" data-def="Ecosystems: communities of living organisms interacting with their environment.">ecosystems</span>.</p>
     `,
     quizC1: [
-      {
-        q: 'What dual role did Sofía play in the system?',
-        options: [
-          'She both built the encrypted SOS and later took the system apart',
-          'She only drove the silver sedan',
-          'She owned the tower with Harlan Voss',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'Why did she want a journalist rather than an internal investigator?',
-        options: [
-          'Journalists work cheaper',
-          'The company could not easily force an outsider to suppress the story',
-          'Maya already had a court order',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What makes the hard drive potentially decisive as evidence?',
-        options: [
-          'It contains two years of located, timed intercepts that are hard to deny',
-          'It is made of gold',
-          'It plays the SOS in Morse only',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does Sofía mean when she calls Maya “a contingency”?',
-        options: [
-          'Maya was chosen specifically and trusted completely',
-          'Maya was a fallback plan rather than the first choice',
-          'Maya was employed by the company',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does Sofía describe herself as dismantling the apparatus “once she grasped its true mandate”?',
-        options: [
-          'She realised the system’s actual purpose contradicted what she had been told',
-          'She needed the parts for another project',
-          'The tower owner ordered her to stop',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does “incontrovertible” metadata mean for Maya’s investigation?',
-        options: [
-          'The evidence can easily be dismissed in court',
-          'The data would be very difficult for anyone to deny or discredit',
-          'The hard drive is password-protected',
-        ],
-        answer: 1,
-      },
+      { q: 'What natural structure did the experimental eco-dome mimic?', options: ['Desert canyon caves', 'Natural forest canopies', 'Coral reef formations'], answer: 1 },
+      { q: "What innovative materials were used for the dome's skin and panels?", options: ['Living mycelium composite panels and photovoltaic skins', 'Reinforced steel girders and tinted glass panes', 'Plastic polymers and aluminum sheets'], answer: 0 },
+      { q: 'How were indoor microclimates regulated within the facility?', options: ['By manual window opening by residents', 'By intelligent HVAC algorithms reacting to sunlight and occupancy', 'By subterranean geothermal pipes alone'], answer: 1 },
+      { q: 'What metabolic capability did the closed-loop system possess?', options: ['Purifying its own greywater and sequestering carbon dioxide', 'Generating organic food crops inside living rooms', 'Manufacturing its own building replacement materials'], answer: 0 },
+      { q: 'What overarching architectural philosophy did the structure represent?', options: ['Brutalist minimalist design', 'Regenerative architecture', 'Industrial retrofitting'], answer: 1 },
+      { q: 'What broader ecological impact was the habitation designed to achieve?', options: ['Actively heal degraded urban ecosystems', 'Displace surrounding wildlife habitats', 'Increase local atmospheric temperatures'], answer: 0 },
     ],
   },
   {
     id: 6,
-    title: 'Counter-Surveillance',
+    title: 'Weekend Trek',
+    titleC1: 'Alpine Glaciology',
     story: `
-      <p>Maya realises she's been followed for three days. A silver sedan, always two cars behind.
-      She
-      <span class="word-highlight" data-word="devises" data-def="To devise: to plan or invent by careful thought.">devises</span>
-      a plan to identify the driver.</p>
-      <p>She enters a shopping centre through the main entrance, exits through the service bay, and circles
-      back. The sedan is parked. The driver is on a phone. She photographs the
-      <span class="word-highlight" data-word="licence" data-def="Licence plate: the metal plate on a vehicle displaying its registration number.">licence</span>
-      plate.</p>
-      <p>The plate comes back to a
-      <span class="word-highlight" data-word="subsidiary" data-def="Subsidiary: a company owned or controlled by another company.">subsidiary</span>
-      of the tower's parent corporation. She's getting close.</p>
+      <p>The crisp autumn air bit sharply at Mateo’s cheeks as he ascended the rugged mountain trail.</p>
+      <p>Opting for a challenging detour off the beaten path, he navigated steep rocky outcrops and dense pine thickets.</p>
+      <p>Halfway up the ridge, thick fog rolled in unexpectedly, obscuring the panoramic view and testing his navigational instincts.</p>
+      <p>Relying on his compass and topographic map, he calmly adjusted his pace and stayed the course until reaching the summit.</p>
     `,
-    char: { name: 'Maya Reyes', role: 'Periodista investigadora', emoji: '🎙️' },
-    charGreeting: "I know I'm being followed. I need to think this through carefully. What would you do to stay safe?",
+    char: { name: 'Mateo', role: 'Montañista y Explorador', emoji: '⛰️' },
+    charGreeting: "Getting lost in the mountain fog was quite a scare, but map reading saved the day. Do you like outdoor adventures and hiking?",
     quiz: [
-      {
-        q: 'How long has Maya been followed?',
-        options: ['For three days', 'For three hours', 'Since 1987'],
-        answer: 0,
-      },
-      {
-        q: 'What kind of car is following her?',
-        options: ['A black van', 'A silver sedan', 'A red taxi'],
-        answer: 1,
-      },
-      {
-        q: 'Who does the licence plate belong to?',
-        options: ['The city archive', 'A subsidiary of the tower’s parent corporation', 'Sofía Chen'],
-        answer: 1,
-      },
-      {
-        q: 'What technique does Maya use to get behind the person following her?',
-        options: ['She calls the police', 'She enters a shopping centre by the front and exits through the service bay', 'She takes a taxi'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya do when she spots the parked sedan?',
-        options: ['She confronts the driver directly', 'She photographs the licence plate', 'She runs away'],
-        answer: 1,
-      },
-      {
-        q: 'What does discovering the plate’s owner tell Maya about her investigation?',
-        options: ['She is getting closer to the truth', 'She has reached a dead end', 'The informant was lying'],
-        answer: 0,
-      },
+      { q: 'What kind of weather and environment did Mateo experience initially?', options: ['Tropical heat and sandy dunes', 'Crisp autumn air on a rugged mountain trail', 'Heavy tropical rainfall in a rainforest'], answer: 1 },
+      { q: 'What unexpected obstacle occurred halfway up the ridge?', options: ['Thick fog rolled in and obscured the view', 'A flash flood blocked the trail', 'He ran completely out of drinking water'], answer: 0 },
+      { q: 'How did Mateo handle the sudden reduction in visibility?', options: ['He panicked and called emergency services immediately', 'He turned back and abandoned the hike', 'He relied on his compass and topographic map'], answer: 2 },
+      { q: 'What reward awaited him after breaching the cloud line?', options: ['A hidden mountain cabin with food', 'A breathtaking vista of golden foliage in the sunlight', 'A meeting with fellow hikers'], answer: 1 },
+      { q: 'What overall lesson did the grueling hike reinforce?', options: ['Mateo should never hike alone again', 'Staying calm and prepared makes challenges worthwhile', 'Mountains are too dangerous to explore'], answer: 1 },
+      { q: 'What type of path did Mateo choose to take?', options: ['A paved tourist walk', 'A challenging detour off the beaten path', 'A shortcut through a local farm'], answer: 1 },
     ],
-    charGreetingC1: "Three days of a silver sedan in the mirror is not paranoia; it's a pattern. I need a strategy that doesn't get me killed. How would you force them to show their hand?",
+    charGreetingC1: "The ice wall is retreating faster than the models. If these frozen archives vanish, what record of the past millennia do we actually lose?",
     storyC1: `
-      <p>By the third day Maya can no longer
-      <span class="word-highlight" data-word="rationalise" data-def="To rationalise: to invent a reasonable explanation for something that may not be reasonable.">rationalise</span>
-      the silver sedan as coincidence. It sits two cars back with a
-      <span class="word-highlight" data-word="discipline" data-def="Discipline: here, controlled, consistent behaviour.">discipline</span>
-      that amateur followers rarely manage. She
-      <span class="word-highlight" data-word="devises" data-def="To devise: to invent a plan through careful thought.">devises</span>
-      a manoeuvre to unmask the driver without a confrontation she cannot win.</p>
-      <p>She enters a shopping centre by the front, leaves through the service bay, and
-      <span class="word-highlight" data-word="doubles" data-def="To double back: to return along the same route.">doubles</span>
-      back. The sedan is parked. The driver is on a call, unguarded for seconds. She photographs the
-      <span class="word-highlight" data-word="licence" data-def="Licence plate: the vehicle’s registration plate.">licence</span>
-      plate.</p>
-      <p>The registration
-      <span class="word-highlight" data-word="traces" data-def="To trace: to find the origin or owner of something.">traces</span>
-      to a
-      <span class="word-highlight" data-word="subsidiary" data-def="Subsidiary: a company controlled by a larger parent company.">subsidiary</span>
-      of the tower's parent corporation. Proximity, at last, has a name.</p>
+      <p>Climbing onto the receding tongue of the glacier, glaciologist Dr. Thorne drove ice-core drills deep into ancient
+      <span class="word-highlight" data-word="firn" data-def="Firn: compacted granular snow that is an intermediate stage between snow and glacial ice.">firn</span>
+      layers. The extracted cylindrical samples contained trapped atmospheric bubbles preserving
+      <span class="word-highlight" data-word="isotopic" data-def="Isotopic: relating to variants of an element used to reconstruct past climate conditions.">isotopic</span>
+      records of past millennia.</p>
+      <p>Laboratory mass
+      <span class="word-highlight" data-word="spectrometry" data-def="Spectrometry: analysis of matter by measuring the mass of its particles or ions.">spectrometry</span>
+      revealed accelerating melt rates directly correlated with industrial
+      <span class="word-highlight" data-word="greenhouse" data-def="Greenhouse gases: atmospheric gases that trap heat and warm the planet.">greenhouse</span>
+      gas emissions.</p>
+      <p>Standing before the retreating ice wall, she recognized the grim reality: these frozen
+      <span class="word-highlight" data-word="archives" data-def="Archives: here, ice that stores historical climate information.">archives</span>
+      were vanishing faster than computational models could predict.</p>
     `,
     quizC1: [
-      {
-        q: 'What does Maya mean by refusing to “rationalise” the sedan?',
-        options: [
-          'She will not keep explaining it away as chance',
-          'She cannot remember the car’s colour',
-          'She sells her own car',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What is the purpose of entering by the front and leaving by the service bay?',
-        options: [
-          'To go shopping unnoticed',
-          'To break visual contact and then observe the follower',
-          'To meet Sofía Chen',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does the plate’s ownership matter strategically?',
-        options: [
-          'It links the surveillance to the same corporate structure as the tower',
-          'It proves the driver is the archive clerk',
-          'It shows Maya is imagining things',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What quality in the follower’s driving tells Maya this is not an amateur?',
-        options: [
-          'The driver parks illegally',
-          'The sedan maintains a consistent two-car gap with controlled discipline',
-          'The driver uses a different car each day',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does Maya avoid a direct confrontation with the driver?',
-        options: [
-          'She is too frightened to act',
-          'She designs a plan she can execute without entering a confrontation she cannot win',
-          'Her editor forbids physical contact',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does “proximity, at last, has a name” mean at the end of the episode?',
-        options: [
-          'Maya has finally identified the corporate entity behind her surveillance',
-          'The driver introduces himself to Maya',
-          'The archive clerk reappears near the shopping centre',
-        ],
-        answer: 0,
-      },
+      { q: 'Where did Dr. Thorne drive her ice-core drills?', options: ['Onto the receding tongue of a glacier into ancient firn layers', 'Into frozen lake ice during winter freeze', 'Inside a high-altitude artificial cold chamber'], answer: 0 },
+      { q: 'What did the extracted cylindrical ice samples contain?', options: ['Fossilized remains of ancient aquatic plants', 'Trapped atmospheric bubbles preserving isotopic records', 'Traces of modern microplastics and industrial slag'], answer: 1 },
+      { q: 'What analytical technique did laboratory technicians use on the samples?', options: ['Mass spectrometry', 'Electron microscopy', 'Carbon dating via infrared lasers'], answer: 0 },
+      { q: 'What did the analysis reveal about current glacial melt rates?', options: ['They were slowing down due to natural cooling cycles', 'They were accelerating and correlating with greenhouse emissions', 'They remained completely stable over the last century'], answer: 1 },
+      { q: 'What emotion or realization struck Dr. Thorne before the ice wall?', options: ['Excitement over new funding opportunities', 'The grim reality that frozen archives were vanishing rapidly', 'Indifference toward historical climate shifts'], answer: 1 },
+      { q: 'How did the actual melt rate compare to computational models?', options: ['It was vanishing faster than models could predict', 'It was precisely matching computer simulations', 'It was slower than theoretical predictions'], answer: 0 },
     ],
   },
   {
     id: 7,
-    title: 'The Negotiation',
+    title: 'The Community Library',
+    titleC1: 'The Neuroethics Symposium',
     story: `
-      <p>The tower's owner, Mr. Harlan Voss, calls Maya directly. "Meet me. Alone. Let's discuss what
-      you have before you do something you regret."</p>
-      <p>Maya consults her editor, who advises
-      <span class="word-highlight" data-word="caution" data-def="Caution: care taken to avoid danger or mistakes.">caution</span>.
-      But Maya knows that sometimes the only way forward is
-      <span class="word-highlight" data-word="through" data-def="Here used figuratively: completing something by going past the difficult part.">through</span>.</p>
-      <p>She meets Voss in a hotel lobby, recorder hidden in her coat pocket. He offers money. Then threats.
-      Maya stays
-      <span class="word-highlight" data-word="composed" data-def="Composed: having one's feelings under control; calm and self-controlled.">composed</span>
-      and walks out with everything on tape.</p>
+      <p>Nestled in a revitalized industrial district, the neighborhood's public library had evolved far beyond a mere repository for books.</p>
+      <p>Under the guidance of director Clara, it served as a vibrant community hub offering free coding bootcamps and maker-spaces.</p>
+      <p>Clara firmly believed that equitable access to modern technology was essential for bridging socioeconomic divides.</p>
+      <p>Seeing teenagers building robots alongside retirees learning digital literacy reinforced her conviction that libraries remain vital societies.</p>
     `,
-    char: { name: 'Harlan Voss', role: 'Dueño de la torre', emoji: '🤵' },
-    charGreeting: "So you came. Wise. I think we can reach an arrangement that benefits everyone. What is it that you actually want?",
+    char: { name: 'Clara', role: 'Directora de Biblioteca', emoji: '📚' },
+    charGreeting: "Our library now teaches coding and robotics to everyone in the neighborhood. What community spaces do you find most valuable?",
     quiz: [
-      {
-        q: 'Who calls Maya directly?',
-        options: ['The archive clerk', 'Mr. Harlan Voss, the tower’s owner', 'Sofía Chen'],
-        answer: 1,
-      },
-      {
-        q: 'Where does Maya meet Voss?',
-        options: ['In a hotel lobby', 'At the harbour', 'Inside the warehouse'],
-        answer: 0,
-      },
-      {
-        q: 'What does Maya do during the meeting?',
-        options: ['She accepts the money', 'She stays composed and records everything', 'She destroys the hard drive'],
-        answer: 1,
-      },
-      {
-        q: 'What does Voss do first when he meets Maya?',
-        options: ['He threatens her immediately', 'He offers money', 'He calls the police'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya’s editor recommend before she meets Voss?',
-        options: ['To go alone and record everything', 'Caution', 'To publish the story first'],
-        answer: 1,
-      },
-      {
-        q: 'How does Maya manage to record the conversation with Voss secretly?',
-        options: ['She uses her phone on the table', 'She hides a recorder in her coat pocket', 'She brings a colleague to take notes'],
-        answer: 1,
-      },
+      { q: 'Where was the community library located?', options: ['In a rural agricultural village', 'In a revitalized industrial district', 'Inside a commercial shopping mall'], answer: 1 },
+      { q: 'Besides storing books, what modern amenities did the library offer?', options: ['Free coding bootcamps and a maker-space with 3D printers', 'A full-service restaurant and coffee lounge', 'Indoor sports courts and a swimming pool'], answer: 0 },
+      { q: 'Who was the director guiding these initiatives?', options: ['Sarah', 'Elena', 'Clara'], answer: 2 },
+      { q: 'What was Clara\'s core philosophy regarding the library?', options: ['It should focus exclusively on historical literature', 'Equitable access to technology bridges socioeconomic divides', 'It should charge high membership fees to cover costs'], answer: 1 },
+      { q: 'What scene reinforced Clara\'s conviction about modern libraries?', options: ['Teenagers building robots alongside retirees learning digital skills', 'The library building remaining completely empty all day', 'People complaining about noisy computer equipment'], answer: 0 },
+      { q: 'What type of spaces did Clara promote for learning?', options: ['Isolated individual cubicles', 'Collaborative learning spaces', 'Strict, silent study halls'], answer: 1 },
     ],
-    charGreetingC1: "You came. That suggests you understand leverage. Let's not insult each other with theatrics. What is the minimum you would accept to walk away?",
+    charGreetingC1: "We were arguing under those vaulted ceilings about rewriting the seat of consciousness. Without an ethical consensus, should bidirectional interfaces even leave the lab?",
     storyC1: `
-      <p>Harlan Voss, the tower's owner, calls Maya on a line she had not given him. "Meet me. Alone. Let us discuss what you think you have — before you do something
-      <span class="word-highlight" data-word="irrevocable" data-def="Irrevocable: impossible to reverse or undo.">irrevocable</span>."</p>
-      <p>Her editor
-      <span class="word-highlight" data-word="counsel" data-def="To counsel: to give professional advice.">counsels</span>
-      <span class="word-highlight" data-word="caution" data-def="Caution: care taken to avoid danger or mistakes.">caution</span>.
-      Maya hears the warning and files it. Some stories cannot be
-      <span class="word-highlight" data-word="negotiated" data-def="To negotiate: to try to reach an agreement through discussion.">negotiated</span>
-      from a distance; they have to be walked through.</p>
-      <p>In the hotel lobby Voss offers money, then
-      <span class="word-highlight" data-word="intimidation" data-def="Intimidation: the act of frightening someone into doing what you want.">intimidation</span>.
-      Maya remains
-      <span class="word-highlight" data-word="composed" data-def="Composed: calm and in control of one’s feelings.">composed</span>,
-      the recorder buried in her coat, and leaves with an
-      <span class="word-highlight" data-word="unedited" data-def="Unedited: not cut or altered; complete as originally recorded.">unedited</span>
-      record of both.</p>
+      <p>Beneath the vaulted ceilings of the university amphitheater,
+      <span class="word-highlight" data-word="neuroethicists" data-def="Neuroethicists: specialists who study the ethics of brain science and neural technology.">neuroethicists</span>
+      debated the implications of bidirectional neural interfaces. Proponents argued that direct brain-computer integration would eradicate cognitive deficits and enhance human memory capacity.</p>
+      <p>Critics, however, raised urgent concerns regarding cognitive liberty, corporate data harvesting of neural
+      <span class="word-highlight" data-word="telemetry" data-def="Telemetry: remote measurement and transmission of data; here, brain-activity data.">telemetry</span>,
+      and erosion of personal identity.</p>
+      <p>The symposium underscored an unprecedented philosophical crisis: humanity was on the verge of modifying the very seat of
+      <span class="word-highlight" data-word="consciousness" data-def="Consciousness: the state of being aware of oneself and one's surroundings.">consciousness</span>
+      without an ethical
+      <span class="word-highlight" data-word="consensus" data-def="Consensus: general agreement among a group of people.">consensus</span>.</p>
     `,
     quizC1: [
-      {
-        q: 'What is implied by Voss calling a number Maya never gave him?',
-        options: [
-          'He has access to information about her that she did not volunteer',
-          'Hotels give out journalists’ numbers',
-          'Maya published the number in the paper',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'How does Maya treat her editor’s advice?',
-        options: [
-          'She ignores it completely and never meets Voss',
-          'She notes the caution but still goes through with the meeting',
-          'She lets the editor attend instead',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What is the strategic value of remaining composed?',
-        options: [
-          'It lets her capture both the bribe and the threats without escalating',
-          'It convinces Voss to sell the tower',
-          'It makes the clerk reopen the archive',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does Voss calling a number Maya never gave him reveal?',
-        options: [
-          'He guessed the number by chance',
-          'He has access to information about her that she did not share',
-          'A mutual friend passed it on',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why does the story describe the meeting as something that must be “walked through”?',
-        options: [
-          'Maya believes certain stories require direct confrontation rather than avoidance',
-          'The hotel has no lift',
-          'Voss refused to use the telephone',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does Voss’s shift from bribery to intimidation tell us about him?',
-        options: [
-          'He is flexible and willing to compromise',
-          'He lacks a consistent strategy and resorts to pressure when money fails',
-          'He genuinely wants the story published',
-        ],
-        answer: 1,
-      },
+      { q: "What technology was at the center of the symposium's debate?", options: ['Artificial intelligence language models', 'Bidirectional neural interfaces', 'Genetic gene-editing CRISPR therapies'], answer: 1 },
+      { q: 'What potential benefits did proponents highlight?', options: ['Eradicating cognitive deficits and enhancing human memory', 'Achieving instantaneous teleportation of thoughts', 'Eliminating the need for human sleep entirely'], answer: 0 },
+      { q: 'What major ethical concern did critics raise regarding neural telemetry?', options: ['Corporate data harvesting of brain activity', 'High manufacturing costs for medical clinics', 'Physical discomfort during surgical implantation'], answer: 0 },
+      { q: 'What philosophical concept did critics argue was under threat?', options: ['Financial market stability', 'Cognitive liberty and personal identity', 'Traditional educational curricula'], answer: 1 },
+      { q: 'What unprecedented crisis did the symposium underscore?', options: ['Modifying the seat of consciousness without ethical consensus', 'A severe shortage of neurosurgeons worldwide', 'Power grid failures in research hospitals'], answer: 0 },
+      { q: 'Where was this academic symposium hosted?', options: ['Inside a corporate tech incubator boardroom', 'Beneath the vaulted ceilings of a university amphitheater', 'At an international government defense summit'], answer: 1 },
     ],
   },
   {
     id: 8,
-    title: 'On air',
+    title: 'Creative Burnout',
+    titleC1: 'Linguistic Preservation',
     story: `
-      <p>The story runs on Sunday. By Monday morning, three
-      <span class="word-highlight" data-word="regulatory" data-def="Regulatory: relating to official rules that control an industry or activity.">regulatory</span>
-      agencies have opened
-      <span class="word-highlight" data-word="investigations" data-def="Investigations: formal inquiries carried out by officials to discover facts.">investigations</span>.</p>
-      <p>Maya sits in the empty radio station where it all started. She tunes to the old frequency one last time.
-      There's nothing there now — just clean, open air.</p>
-      <p>She smiles. Someone needed to find the signal. She did. That was enough.</p>
-      <p><em>— Fin de The Frequency —</em></p>
+      <p>After weeks of staring at blank canvases and wrestling with uninspired watercolor strokes, Lucas realized he was suffering from severe creative burnout.</p>
+      <p>His usual passion for painting had curdled into a suffocating obligation, draining his artistic enthusiasm.</p>
+      <p>Instead of forcing himself to produce work, he made a conscious decision to step away from the easel entirely for a fortnight.</p>
+      <p>By relinquishing the pressure to constantly perform, his creative spark quietly and naturally reignited.</p>
     `,
-    char: { name: 'Maya Reyes', role: 'Periodista investigadora', emoji: '🎙️' },
-    charGreeting: "The story is out. It's over — or maybe it's just beginning. How did you feel reading The Frequency from beginning to end?",
+    char: { name: 'Lucas', role: 'Artista Plástico', emoji: '🎨' },
+    charGreeting: "Taking a break from painting was the best thing I could do to beat creative burnout. Have you ever had to step back to recharge your passion?",
     quiz: [
-      {
-        q: 'When does Maya’s story run?',
-        options: ['On Friday', 'On Sunday', 'At 3 a.m.'],
-        answer: 1,
-      },
-      {
-        q: 'What happens by Monday morning?',
-        options: ['The tower is sold', 'Three regulatory agencies open investigations', 'Maya leaves the country'],
-        answer: 1,
-      },
-      {
-        q: 'What does Maya hear on the old frequency at the end?',
-        options: ['Another SOS', 'Harlan Voss speaking', 'Nothing — just clean, open air'],
-        answer: 2,
-      },
+      { q: 'What problem was Lucas experiencing with his art?', options: ['He lost all his painting equipment in a fire', 'He was suffering from severe creative burnout', 'He was too successful and had too many commissions'], answer: 1 },
+      { q: 'How had his passion for painting transformed?', options: ['Into a suffocating obligation that drained his enthusiasm', 'Into a lucrative business venture', 'Into a hobby he shared with thousands of students'], answer: 0 },
+      { q: 'What radical step did he take to address the issue?', options: ['He enrolled in a masterclass in Europe', 'He stepped away from the easel entirely and took a break', 'He switched completely to digital graphic design'], answer: 1 },
+      { q: 'What activities did he engage in during his break?', options: ['Exploring botanical gardens and sketching without pressure', 'Working long hours at a corporate design agency', 'Competing in regional art competitions'], answer: 0 },
+      { q: 'What was the ultimate result of relinquishing performance pressure?', options: ['He quit art forever and started writing code', 'His creative spark naturally and quietly reignited', 'He realized he preferred photography over painting'], answer: 1 },
+      { q: 'How long was his period of stepping away to explore other things?', options: ['A single weekend', 'A full year', 'A fortnight'], answer: 2 },
     ],
-    charGreetingC1: "It's out. The frequency is quiet, which is a kind of verdict. Reading it through to the end — did it feel like closure, or like the first hour of something larger?",
+    charGreetingC1: "The last fluent speakers sat with me while the multi-trackers ran. If a language vanishes, what part of human cognitive diversity actually disappears?",
     storyC1: `
-      <p>The investigation runs on Sunday. By Monday, three
-      <span class="word-highlight" data-word="regulatory" data-def="Regulatory: relating to official rules that govern an industry.">regulatory</span>
-      agencies have opened
-      <span class="word-highlight" data-word="inquiries" data-def="Inquiries: formal investigations to establish facts.">inquiries</span>
-      that Voss can neither buy nor
-      <span class="word-highlight" data-word="postpone" data-def="To postpone: to delay until a later time.">postpone</span>.</p>
-      <p>Maya returns to the empty station where the first pulse found her. She tunes the
-      <span class="word-highlight" data-word="decommissioned" data-def="Decommissioned: taken out of official service.">decommissioned</span>
-      band one last time. There is no pattern now — no SOS, no
-      <span class="word-highlight" data-word="residue" data-def="Residue: a small amount of something that remains.">residue</span>
-      of whoever needed to be heard. Only clean, unclaimed air.</p>
-      <p>She allows herself a thin smile. Someone had to
-      <span class="word-highlight" data-word="corroborate" data-def="To corroborate: to confirm or support a claim with evidence.">corroborate</span>
-      the signal. She did. For a journalist, that is not a small ending.</p>
-      <p><em>— Fin de The Frequency —</em></p>
+      <p>Deep in the remote rainforest settlement,
+      <span class="word-highlight" data-word="ethnolinguist" data-def="Ethnolinguist: a scholar who studies the relationship between language and culture.">ethnolinguist</span>
+      Dr. Alistair recorded the final fluent speakers of an endangered tonal language. Utilizing portable acoustic multi-trackers, she cataloged complex
+      <span class="word-highlight" data-word="morphosyntactic" data-def="Morphosyntactic: relating to how word forms and sentence structure work together.">morphosyntactic</span>
+      structures before oral traditions vanished entirely.</p>
+      <p>The indigenous elders shared oral histories embedded with sophisticated botanical
+      <span class="word-highlight" data-word="taxonomies" data-def="Taxonomies: systems for classifying and naming living things.">taxonomies</span>
+      unknown to Western science.</p>
+      <p>Her
+      <span class="word-highlight" data-word="archival" data-def="Archival: relating to the long-term storage of records and documents.">archival</span>
+      repository became an invaluable cultural ark, ensuring that a unique window into human cognitive diversity would survive digital
+      <span class="word-highlight" data-word="posterity" data-def="Posterity: all future generations of people.">posterity</span>.</p>
     `,
     quizC1: [
-      {
-        q: 'What makes Monday more significant than Sunday in this ending?',
-        options: [
-          'Sunday is when Maya rests',
-          'Official agencies begin formal inquiries the next morning',
-          'The warehouse burns down on Monday',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'How should we read the silence on the old frequency?',
-        options: [
-          'As evidence that the distress call is no longer being sent',
-          'As proof that Maya imagined the first episode',
-          'As Voss broadcasting a confession',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does Maya consider “not a small ending” for a journalist?',
-        options: [
-          'Having confirmed and brought the signal into public view',
-          'Buying the radio station',
-          'Accepting Voss’s money after all',
-        ],
-        answer: 0,
-      },
-      {
-        q: 'What does the silence on the old frequency symbolise at the end?',
-        options: [
-          'The signal is still active but hidden',
-          'The distress call is no longer needed because the story has been told',
-          'Voss has taken over the frequency',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'Why are the regulatory inquiries significant beyond the story itself?',
-        options: [
-          'They show the publication had no real impact',
-          'They confirm that Maya’s reporting triggered consequences that neither she nor Voss can now control',
-          'They were launched before Maya published anything',
-        ],
-        answer: 1,
-      },
-      {
-        q: 'What does “corroborate the signal” mean in the final lines?',
-        options: [
-          'To verify and publicly confirm its existence through evidence',
-          'To decode the Morse pattern again',
-          'To sell the recording to another journalist',
-        ],
-        answer: 0,
-      },
+      { q: "What was Dr. Alistair's professional background?", options: ['Cultural anthropologist', 'Ethnolinguist', 'Evolutionary biologist'], answer: 1 },
+      { q: 'What specific subjects was she recording in the rainforest?', options: ['Animal mating calls and insect vibrations', 'The final fluent speakers of an endangered tonal language', 'Environmental acoustic noise pollution levels'], answer: 1 },
+      { q: 'What equipment did she use to catalog the language?', options: ['Portable acoustic multi-trackers', 'Satellite video recording gear', 'Handwritten parchment notebooks only'], answer: 0 },
+      { q: 'What scientific knowledge was embedded within the elders\' oral histories?', options: ['Advanced metallurgical smelting formulas', 'Sophisticated botanical taxonomies unknown to Western science', 'Maritime celestial navigation maps'], answer: 1 },
+      { q: 'What did her resulting archival repository act as?', options: ['A commercial dictionary for ecotourism businesses', 'An invaluable cultural ark for cognitive diversity', 'A legal document for land ownership claims'], answer: 1 },
+      { q: 'What ultimate assurance did her fieldwork provide?', options: ['That the language would survive for digital posterity', 'That the rainforest would receive government logging protection', 'That local schools would adopt Western curricula'], answer: 0 },
     ],
   },
 ];
@@ -1200,7 +584,6 @@ function startLivesTicker() {
    DIAL ANIMADO
    ════════════════════════════════════════ */
 function pctToAngle(pct) {
-  // aguja: -130deg (0%) → +130deg (100%)
   return -130 + (pct / 100) * 260;
 }
 
@@ -1237,6 +620,10 @@ function calcPct() {
    ════════════════════════════════════════ */
 function isC1() {
   return state.level === 'avanzado';
+}
+
+function episodeTitle(ep) {
+  return isC1() ? (ep.titleC1 || ep.title) : ep.title;
 }
 
 function episodeStory(ep) {
@@ -1300,10 +687,8 @@ function showMainPhase() {
   document.getElementById('epBadge').style.display     = 'block';
   document.getElementById('btnHome').classList.add('visible');
 
-  // Mostrar u ocultar tab Listening según nivel
   applyListeningTabVisibility();
 
-  // Update ep/lesson badge
   if (isBasico() && !state.a1Advanced) {
     const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
     document.getElementById('epBadge').textContent = `A1 ${state.a1Completed.length}/${total}`;
@@ -1334,24 +719,20 @@ function closeModal() {
 function confirmGoHome() {
   closeModal();
 
-  // Ocultar fase main
   document.getElementById('tabNav').style.display  = 'none';
   document.getElementById('epBadge').style.display = 'none';
   document.getElementById('btnHome').classList.remove('visible');
 
-  // Ocultar todas las pantallas main
   ['historia', 'practica', 'diario', 'reader'].forEach(id => {
     document.getElementById(`screen-${id}`)?.classList.remove('active');
   });
 
-  // Volver a onboarding SIN borrar progreso
   state.phase = 'onboarding';
   saveState();
 
   const onboarding = document.getElementById('screen-onboarding');
   onboarding.classList.add('active');
 
-  // Restaurar selección de nivel si ya había uno
   applyLevelLockUI();
   if (state.level) {
     updateDials(calcPct() > 10 ? 10 : calcPct());
@@ -1362,7 +743,6 @@ function confirmGoHome() {
   showToast('Bienvenido de nuevo 👋');
 }
 
-// Cerrar modal haciendo clic fuera
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('modalOverlay').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeModal();
@@ -1373,7 +753,6 @@ document.addEventListener('DOMContentLoaded', () => {
    NAVEGACIÓN ENTRE TABS
    ════════════════════════════════════════ */
 function switchTab(tab) {
-  // Redirigir tab Listening a Historia si el usuario todavía está en A1 básico
   if (tab === 'listening' && state.level === 'basico' && !state.a1Advanced) {
     showToast('El listening se desbloquea al avanzar al nivel B1–B2');
     tab = 'historia';
@@ -1381,24 +760,20 @@ function switchTab(tab) {
 
   state.currentTab = tab;
 
-  // Actualizar botones del nav
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === tab);
   });
 
-  // Mostrar / ocultar pantallas
   ['historia', 'practica', 'diario', 'listening'].forEach(t => {
     const el = document.getElementById(`screen-${t}`);
     if (el) el.classList.toggle('active', t === tab);
   });
 
-  // Ocultar siempre el lector y el player de listening al cambiar tab
   const screenReader = document.getElementById('screen-reader');
   if (screenReader) screenReader.classList.remove('active');
   const screenListenPlayer = document.getElementById('screen-listen-player');
   if (screenListenPlayer) screenListenPlayer.classList.remove('active');
 
-  // Builders por tab
   if (tab === 'diario')    buildDiario();
   if (tab === 'practica')  buildPractica();
   if (tab === 'listening') buildListeningHub();
@@ -1413,10 +788,6 @@ function isBasico() {
   return state.level === 'basico';
 }
 
-/**
- * Oculta el tab Listening solo cuando el nivel es básico A1 puro
- * (antes de avanzar a B1). En todos los demás casos lo muestra.
- */
 function applyListeningTabVisibility() {
   const tabListening = document.getElementById('tabListening');
   if (!tabListening) return;
@@ -1436,7 +807,6 @@ function buildEpList() {
   const list = document.getElementById('epList');
   list.innerHTML = '';
 
-  /* ── Nivel básico: mostrar lecciones A1 ── */
   if (isBasico()) {
     const note = document.getElementById('epListNote');
     if (note) {
@@ -1469,12 +839,10 @@ function buildEpList() {
       list.appendChild(div);
     });
 
-    /* ── Botón de avance de nivel ── */
     buildAdvanceButton();
     return;
   }
 
-  /* ── Niveles B1-B2 y C1: episodios normales ── */
   const note = document.getElementById('epListNote');
   if (note) {
     note.textContent = isC1()
@@ -1501,7 +869,7 @@ function buildEpList() {
 
     div.innerHTML = `
       <div class="ep-num">${completed ? '✓' : ep.id}</div>
-      <div class="ep-title">${ep.title}${lockNote ? `<div class="ep-sub">${lockNote}</div>` : ''}</div>
+      <div class="ep-title">${episodeTitle(ep)}${lockNote ? `<div class="ep-sub">${lockNote}</div>` : ''}</div>
     `;
 
     if (unlocked) div.onclick = () => openEpisode(ep.id);
@@ -1547,16 +915,13 @@ function advanceToB1() {
     showToast('Completa todas las lecciones A1 primero');
     return;
   }
-  // Cambiar nivel a intermedio, mantener historial A1
   state.level       = 'intermedio';
   state.a1Advanced  = true;
   state.levelLocked = true;
   saveState();
 
-  // Mostrar tab Listening ahora que es B1
   applyListeningTabVisibility();
 
-  // Update badge to episode mode
   const nextEp = 1;
   const badge  = document.getElementById('epBadge');
   if (badge) badge.textContent = `EP.${nextEp}/8`;
@@ -1576,14 +941,12 @@ function openA1Lesson(id) {
   if (!lesson) return;
   state.currentA1Lesson = id;
 
-  // Ocultar lista, mostrar lector
   document.getElementById('screen-historia').classList.remove('active');
   document.getElementById('screen-reader').classList.add('active');
   document.getElementById('readerEpLabel').textContent = `LECCIÓN ${lesson.id} DE ${a1LessonCount()}`;
   document.getElementById('readerTitle').textContent   = lesson.title;
   document.getElementById('readerBody').innerHTML      = lesson.story || '';
 
-  // Attacher tooltips de vocabulario
   attachWordHighlights();
 
   hideQuiz();
@@ -1708,7 +1071,6 @@ function finishA1Lesson() {
   const total = a1LessonCount();
   const done  = state.a1Completed.length;
 
-  // Update badge
   const badge = document.getElementById('epBadge');
   if (badge) badge.textContent = `A1 ${done}/${total}`;
 
@@ -1789,7 +1151,6 @@ function showQuiz() {
 }
 
 function submitQuiz() {
-  // Dispatch to A1 handler when in basico level
   if (isBasico() && state.currentA1Lesson !== null) {
     submitA1Quiz();
     return;
@@ -1862,7 +1223,7 @@ function openEpisode(id) {
   document.getElementById('screen-historia').classList.remove('active');
   document.getElementById('screen-reader').classList.add('active');
   document.getElementById('readerEpLabel').textContent = `FRECUENCIA ${ep.id} DE 8`;
-  document.getElementById('readerTitle').textContent   = ep.title;
+  document.getElementById('readerTitle').textContent   = episodeTitle(ep);
   document.getElementById('readerBody').innerHTML      = episodeStory(ep);
 
   hideQuiz();
@@ -1900,7 +1261,6 @@ function attachWordHighlights() {
       tip.classList.add('visible');
       moveTip(e);
 
-      // Guardar en vocabulario si es nueva
       if (!state.savedWords.find(w => w.word === word)) {
         state.savedWords.push({ word, def, ep: state.currentEp });
         saveState();
@@ -1976,7 +1336,7 @@ function buildPractica() {
     container.innerHTML = `
       <div class="practica-locked-card">
         <div class="eyebrow">PRÁCTICA</div>
-        <h3>${done === 0 ? 'Todavía no hay escenas disponibles' : `${done} de ${total} lecciones completadas`}</h3>
+        <h3>${done === 0 ? 'Todavía no hay escenas disponibles' : `${done} de${total} lecciones completadas`}</h3>
         <p>La práctica de conversación se desbloquea cuando avances al nivel B1–B2. Completa las ${total} lecciones A1–A2 en la pestaña "Historia" para acceder.</p>
         ${done > 0 ? `<div class="a1-progress-mini"><div class="a1-progress-bar" style="width:${Math.round((done/total)*100)}%"></div></div>` : ''}
       </div>`;
@@ -2041,7 +1401,7 @@ function sendMessage() {
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: 1000,
-      system: `You are ${ep.char.name}, ${ep.char.role} from the story "The Frequency" in the Speak FM English learning app.
+      system: `You are ${ep.char.name}, ${ep.char.role} from the story in the Speak FM English learning app.
 Stay in character. Speak only in English. Keep responses to 2–4 sentences.
 The learner's level is ${isC1() ? 'C1 (advanced)' : 'B1–B2 (intermediate)'}. Match that register: ${isC1() ? 'use precise, idiomatic English without simplifying unduly' : 'use natural but accessible English'}.
 If the user writes in Spanish, gently encourage them to try in English and give a simple example.
@@ -2099,7 +1459,6 @@ function removeTyping() {
    DIARIO
    ════════════════════════════════════════ */
 function buildDiario() {
-  // Estadísticas
   if (isBasico() && !state.a1Advanced) {
     const total = typeof a1LessonCount === 'function' ? a1LessonCount() : 6;
     document.getElementById('statEpisodes').textContent = `${state.a1Completed.length}/${total}`;
@@ -2109,7 +1468,6 @@ function buildDiario() {
   document.getElementById('statWords').textContent    = state.savedWords.length;
   document.getElementById('statConvos').textContent   = state.conversations;
 
-  // Pastillas de episodios
   const badgesWrap = document.getElementById('epBadges');
   badgesWrap.innerHTML = '';
   EPISODES.forEach(ep => {
@@ -2120,7 +1478,6 @@ function buildDiario() {
     badgesWrap.appendChild(pill);
   });
 
-  // Vocabulario
   const vocabWrap = document.getElementById('vocabContent');
   if (state.savedWords.length === 0) {
     vocabWrap.innerHTML = `<div class="vocab-empty">Aún no hay palabras guardadas. Completa un episodio para empezar tu diario.</div>`;
@@ -2141,7 +1498,6 @@ function buildDiario() {
     vocabWrap.appendChild(list);
   }
 
-  // Insignias
   const grid = document.getElementById('insigniasGrid');
   grid.innerHTML = '';
   INSIGNIAS.forEach(ins => {
